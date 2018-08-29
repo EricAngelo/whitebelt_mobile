@@ -1,0 +1,39 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Add Existing User</h1>
+    <button class="button button-gray button-small ion-ios-arrow-back icon-left" style="float:right;" ng-click="closeAddExistingRelation()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+      
+
+      <div class="item item-avatar item-text-wrap has-header" ng-repeat="userSearchLists in userSearchList" ng-hide="showSearchUsers" ng-click="relationshipForm({{userSearchLists.id}},'{{userSearchLists.first_name}}','{{userSearchLists.last_name}}','{{userSearchLists.email}}','{{userSearchLists.contact_number}}')" style="{{userSearchLists.is_lead}}">
+        <img ng-src="{{userSearchLists.picture}}" onerror="this.src='img/logo.png'" style="background-position: center;border-radius: 50%;">
+            <h2>{{userSearchLists.last_name}} {{userSearchLists.first_name}}</h2> 
+            <p>{{userSearchLists.username}}</p> 
+            <p ng-show="userSearchLists.on_hold==1" style="color:red; position:relative; right:10px"> &#x26D4; On Hold</p>
+<!--<p>{{userSearchLists.email}}</p> -->
+<!--<p>{{$index}}</p> -->
+      </div>
+
+      <div class="item item-text-wrap has-header" ng-hide="showNoUsersResults">
+        <center>
+          <h2 class="title">No Search Results Found <i class="ion-search"></i></h2>
+        </center>
+      </div>
+      <div class="item item-text-wrap has-header" ng-hide="checkInternet()">
+        <center>
+          <h2 class="title">Please Check Internet Connection <i class="ion-wifi"></i></h2>
+        </center>
+      </div>
+
+  </ion-content>
+  <div class="fixed-outside">
+<!--     <button class="button button-pink ion-chevron-up button-circle" ng-click="loadAllUsers()"></button> -->
+   
+  </div>
+    <div class="item item-input " style="position: absolute;top: 40px; width:100%;">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" ng-keyup="searchForAUser()" ng-model="searchUserName">
+    </div>
+</ion-modal-view>
+

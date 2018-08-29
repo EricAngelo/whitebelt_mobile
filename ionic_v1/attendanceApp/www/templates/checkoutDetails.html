@@ -1,0 +1,25 @@
+
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Checkout</h1><button class="button button-gray ion-ios-arrow-back icon-left" ng-click="checkoutDetailsModal.hide()">Back</button>
+  </ion-header-bar >
+  
+  <ion-content >
+  
+
+<!-- <form action="{{checkoutUrl}}" method="POST">
+
+<input name="user_id" type="hidden" value="{{product_userId}}">
+<input name="product_id" type="hidden" value="{{product_id}}"> -->
+{{checkoutUrl}}<br>
+{{product_name}}<br>
+{{product_price}}<br>
+{{product_description}}<br>
+{{product_picture}}<br>
+<p id="stripe_script"></p>
+<!-- <p id="demo"></p>
+<input type="submit" value="Submit">
+</form>   -->
+<!-- <script ></script> -->
+  </ion-content>
+</ion-modal-view>

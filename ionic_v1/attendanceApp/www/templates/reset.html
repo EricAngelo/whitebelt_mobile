@@ -1,0 +1,30 @@
+<ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar>
+<!--     <h1 class="title">Reset</h1> -->
+  </ion-header-bar>
+  <ion-content class="has-header">
+   <div>
+      Welcome to White Belt
+  To reset your password, please type your email address below.
+  Or if you are a new user of White Belt please type-in your email address(your email address which has been notified to claim your account).
+
+  You will be notified through your email and be given a link to nominate your password.
+  </div>
+  <div class="card">
+    <form ng-submit="doReset()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="resetData.email">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Reset</button>
+        </label>
+      </div>
+    </form>
+    <div class="buttons">
+      <button class="button button-gray" ng-click="closeReset()">Back</button>
+    </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

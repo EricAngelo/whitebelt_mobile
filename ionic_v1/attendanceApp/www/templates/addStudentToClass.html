@@ -1,0 +1,82 @@
+ <ion-modal-view style="z-index:auto;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar-stable bar bar-header">
+    <h1 class="title"><center>Add Student to Class</center></h1>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeAddStudent()">Back</button>
+  </ion-header-bar >
+  <ion-content style="position: absolute;top: 125px; width:100%;">
+
+
+<!-- <ion-toggle name="programFilters"> Enable Programs Filter</ion-toggle>
+
+<div class="item item-text-wrap">
+<label> <input type="radio" name="programsFilter"> Little Ninja</label>
+<label> <input type="radio" name="programsFilter"> Muay Thai</label>
+<label> <input type="radio" name="programsFilter"> Kung Fu</label>
+
+</div>
+
+<center><b>Ranks</b></center>
+<div class="item item-text-wrap">
+<label> <input type="checkbox" name="programsFilter"> Brown 3rd GUP</label>
+<label> <input type="checkbox" name="programsFilter"> High Brown 2nd GUP</label>
+<label> <input type="checkbox" name="programsFilter"> BODAN 1st GUP</label>
+</div>
+
+<ion-toggle name="showLeads">Show Leads</ion-toggle> -->
+
+<!-- <center id="class_filter">
+  <br><br>{{filter1}}
+</center>  
+<center id="class_filter2">
+  <br><br>{{filter2}}
+</center> -->
+
+    <div class="item item-avatar item-text-wrap" ng-repeat="precheckedin_students in precheckedin_student track by $index" ng-show="showAllStudent" style="{{precheckedin_students.isLead}}">
+      <div class="row" style="margin-bottom:-25px;">
+        <div class="col item-avatar item-text-wrap item-button-right" style="margin-bottom:-25px;">        
+          <img ng-src="{{precheckedin_students.pic}}" onerror="this.src='img/logo.png'" style="background-position: center;border-radius: 50%;" ng-click="viewStudentDetails(precheckedin_students.userid)">
+          <h2 ng-click="viewStudentDetails(precheckedin_students.userid)" >{{precheckedin_students.name}}<b ng-show="precheckedin_students.onHold==1"> &#x26D4;</b></h2> 
+          <p ng-click="viewStudentDetails(precheckedin_students.userid)" >{{precheckedin_students.username}}</p>
+        </div>
+        <div class="col">
+          <button class="button button-small button-balanced" style="position: absolute;right:20px;" ng-click="checkViaInstructor({{class_details_classId}},{{precheckedin_students.userid}},'{{precheckedin_students.name}}',{{selected_class_schedule_id}})">Check in</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item item-avatar item-text-wrap" ng-repeat="precheckedin2_students in precheckedin2_student track by $index" ng-show="showSearchStudent" style="{{precheckedin2_students.isLead}}">
+      <div class="row" style="margin-bottom:-25px;">
+        <div class="col item-avatar item-text-wrap item-button-right" style="margin-bottom:-25px;">
+          <img ng-src="{{precheckedin2_students.pic}}" onerror="this.src='img/logo.png'" style="background-position: center;border-radius: 50%;" ng-click="viewStudentDetails(precheckedin2_students.userid)">
+          <h2 ng-click="viewStudentDetails(precheckedin2_students.userid)">{{precheckedin2_students.name}} <b ng-show="precheckedin2_students.onHold==1"> &#x26D4;</b></h2> 
+          <p ng-click="viewStudentDetails(precheckedin2_students.userid)">{{precheckedin2_students.username}}</p>
+        </div>
+        <div class="col">
+          <button class="button button-small button-balanced" style="position: absolute;right:20px;" ng-click="checkViaInstructor({{class_details_classId}},{{precheckedin2_students.userid}},'{{precheckedin2_students.name}}',{{selected_class_schedule_id}})">Check in</button>
+        </div> 
+      </div>
+    </div>
+
+      <div class="item item-text-wrap" ng-show="precheckedin2_student.length==0 && searchStudentName!=''">
+        <center>
+          <h2 class="title">No Search Results Found <i class="ion-search"></i></h2>
+        </center>
+      </div>
+      <div class="item item-text-wrap" ng-hide="checkInternet()">
+        <center>
+          <h2 class="title">Please Check Internet Connection <i class="ion-wifi"></i></h2>
+        </center>
+      </div>
+      <button class="button button-small button-positive button-full" ng-click="addOtherStudents()">Show other students: {{show_other_students}}</button>
+
+  </ion-content>
+      <div class="item item-input " style="position: absolute;top: 40px; width:100%;">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" ng-keyup="searchForAStudent()" ng-model="searchStudentName">
+
+    </div>
+      <ion-toggle  ng-model="show_lead_filter" ng-click="showLeadFilterUpdate()" style="position: absolute;top: 80px; width:100%;">
+        Show Leads
+      </ion-toggle>
+</ion-modal-view>
+

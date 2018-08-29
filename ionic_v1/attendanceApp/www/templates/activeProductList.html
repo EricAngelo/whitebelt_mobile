@@ -1,0 +1,26 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Purchased Items</h1><button class="button button-gray ion-ios-arrow-back icon-left" ng-click="activeProductModal.hide()">Back</button>
+  </ion-header-bar >
+
+  <ion-content style="position: absolute;top: 90px;">
+  <div class="row" ng-repeat="activeProducts in activeProduct track by $index" style="{{activeProducts.consumed}}">
+    <div class="col col-33" style="border: 3px solid gray;">
+      <center>
+        <img ng-src="{{activeProducts.picture}}"  onerror="this.src='img/logo.png'" style="object-fit: cover;max-width: 80px;max-height: 100px;{{activeProducts.consumed2}}">
+        <br>{{activeProducts.name}}
+      </center>
+    </div>
+    <div class="col" style="border: 3px solid gray;">{{activeProducts.quantity}}</div>
+    <div class="col" style="border: 3px solid gray;">{{activeProducts.status}}</div>
+    <div class="col" style="border: 3px solid gray;">{{activeProducts.date_purchased}}</div>
+  </div>
+
+  </ion-content>
+  <div class="row" style="position: absolute;top: 40px;background-color:white;"> 
+    <div class="col col-33" style="border: 3px solid gray;">Name</div>
+    <div class="col" style="border: 3px solid gray;">Quantity</div>
+    <div class="col" style="border: 3px solid gray;">Status</div>
+    <div class="col" style="border: 3px solid gray;">Date Purchased</div>
+  </div>
+</ion-modal-view>

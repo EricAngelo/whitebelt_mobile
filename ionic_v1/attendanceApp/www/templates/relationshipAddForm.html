@@ -1,0 +1,82 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Add Non-Existing User</h1>
+     <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeRelationshipAddForm()">Back</button> 
+  </ion-header-bar >
+  <ion-content>
+    <form name="addRelationshipForm" ng-submit="addRelationship()">
+      <div class="list">
+
+        <label class="item item-input">
+          <span class="input-label">First Name</span>
+          <input type="text" ng-model="relationship_add_first_name" name="relationship_add_first_name" ng-init="relationship_add_first_name" ng-readonly="readonlyRelationshipFields">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Last Name</span>
+          <input type="text" ng-model="relationship_add_last_name" name="relationship_add_last_name" ng-init="relationship_add_last_name" ng-readonly="readonlyRelationshipFields">
+        </label>
+
+        <label class = "item item-input">
+          <div class = "input-label">
+            Relationship Type
+          </div><br>
+<h2>{{relationship_add_type.name}}</h2>
+<!--         <select 
+            style="text-align:left; background-color:transparent; border:none;"
+            ng-model="relationship_add_type" 
+            ng-options="mainOption.name for mainOption in mainOptions" ng-init="relationship_add_type"
+            ng-change="changeType()">
+
+        </select> -->
+        </label>
+
+        <label class = "item item-input">
+          <div class = "input-label">
+            Relation To Student
+          </div><br>
+
+        <select 
+            style="text-align:left; background-color:transparent; border:none;"
+            ng-model="relationship_add_sub_type" 
+            ng-options="option.name for option in options" ng-init="relationship_add_sub_type">
+        </select>
+        </label>
+
+
+        <label class = "item item-input">
+          <div class = "input-label">
+            Allow check in & update profile
+          </div><br>
+          <ion-toggle ng-model="relationship_enable_checkin" name="relationship_enable_checkin" style="padding-bottom:35px;background-color:transparent;border:none;"></ion-toggle>
+        </label>
+
+<!--         <ion-toggle class="item-checkbox-right" ng-model="relationship_enable_edit" name="relationship_enable_edit">
+          Enable to update profile for you?
+        </ion-toggle> -->
+
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="relationship_add_email" name="relationship_add_email" ng-init="relationship_add_email" ng-readonly="readonlyRelationshipFields">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Contact Number</span>
+          <input type="text" ng-model="relationship_add_contact_number" name="relationship_add_contact_number" ng-init="relationship_add_contact_number" ng-readonly="readonlyRelationshipFields">
+        </label>
+
+        <label class="item">
+          <input type="hidden" ng-model="indexId">
+          <input type="hidden" ng-model="userRelationshipId">
+          <button id="add_non_existing_user_btn" class="button button-block button-positive" ng-click="disableAddRelationshipBtn()" type="submit">Add</button>
+        </label>
+      </div>
+    </form>
+    <div style="margin:10px;">
+     
+    </div>
+<!--     <button ng-click="test()">Clear</button> -->
+ 
+  </ion-content>
+</ion-modal-view>
+

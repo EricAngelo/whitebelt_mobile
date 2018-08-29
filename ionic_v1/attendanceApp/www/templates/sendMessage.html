@@ -1,0 +1,60 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-header bar-stable">
+    <h1 class="title">Instant Message</h1>
+    <div class="button button-bar" style="width:140px;background-color:#160a47;border-style:none;">
+    	<button class="button button-small" style="background-color:#fd5802;color:#ffffff;float:right;width:40px;" ng-click="error('Save')"><b>Save</b></button><button class="button button-small button-gray" ng-click="closeSendMessageModal()" style="width:40px;">Back</button>
+    </div>
+
+  </ion-header-bar>
+  <ion-content>
+
+  
+
+	<div class="item">
+	  <label><b>Subject:</b><input type="text" ng-model="msg_subject" name="msg_subject" placeholder=" Subject" style="border: 1px solid gray;width:100%;border-radius: 5%;"></label>
+	</div>
+
+	<div class="item">
+	  <label><b>Recipients:<br></b></label>
+	  <button class="button button-assertive button-small" ng-click="openSelectRecipientsModal()">{{sendToUserSelected.length}}</button><button class="button button-light button-small" ng-click="openSelectRecipientsModal()">Select Recipients</button>
+	</div>
+
+	<div class="item">
+	  <label><b>Content:</b><br></label>
+	  <textarea ng-model="closedLeadComment" rows="4" cols="50" style="border: 1px solid gray;max-width:100%;width:100%;"></textarea>
+	</div>
+
+
+	 <div class="item">
+	 	<font ng-click="msgSMSEmailSelect(1)">
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-outline" ng-hide="msg_SMS"></font>
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-filled" ng-show="msg_SMS"></font>
+			SMS
+		</font><br>
+
+		<font ng-click="msgSMSEmailSelect(2)">
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-outline" ng-hide="msg_Email"></font>
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-filled" ng-show="msg_Email"></font>
+			Email
+		</font><br>
+
+		<font ng-click="msgSMSEmailSelect(3)">
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-outline" ng-hide="msg_SMS_Email"></font>
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-circle-filled" ng-show="msg_SMS_Email"></font>
+			SMS/Email
+		</font><br>
+	 </div>
+
+	<div class="item">
+		<font ng-click="msgPushNotification()">
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-checkmark-outline" ng-hide="msg_Push_Notification"></font>
+			<font style="color:#e42112;font-size: 150%;" class="ion-ios-checkmark" ng-show="msg_Push_Notification"></font>
+			Push Notification
+		</font><br>
+	 </div>
+
+  </ion-content>
+</ion-modal-view> 
+
+
+

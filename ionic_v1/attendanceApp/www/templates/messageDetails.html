@@ -1,0 +1,22 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Message Details</h1>
+          <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeMessageDetailsModal()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+    <b >{{messageDetail_preview_message}}</b><hr><br>
+    Message:<br>
+    <div class="item item-text-wrap" ng-bind-html="messageDetail_message"></div><hr>
+<!-- {{messageDetail_id}}<hr>
+    {{messageDetail_user_id}}<hr>
+    {{messageDetail_type}}<hr>
+    {{messageDetail_viewed}}<hr>
+    {{messageDetail_newsletter_history_id}}<hr>
+    {{messageDetail_sender}}<hr> -->
+
+  </ion-content>
+</ion-modal-view>
+
+
+
+

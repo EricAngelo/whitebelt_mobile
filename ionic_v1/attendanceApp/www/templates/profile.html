@@ -1,0 +1,112 @@
+
+<ion-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-content class="has-header">
+	<div class="card">
+		<div class="item {{headder_color}}">
+			<h2 class="title">Personal Details</h2>
+			<button id="editPersonalData" class="button button-small ion-edit" ng-click="updatePersonalInfo()" ></button>
+		</div>
+<!-- 		<button ng-click="test()" >Test</button> -->
+<!-- 		<img ng-src="" ng-model="testImg" name="testImg"> -->
+<!-- 		<input type="text" name="test2" ng-model="test2"> -->
+		<div class="item item-text-wrap">
+  			<div class="row row-responsive">
+	  			<div class="col col-33" ng-click="updatePersonalInfo()">
+	  				<center>
+		       			<img id="profileImage" ng-src="{{picture}}" onerror="this.src='img/default_user_logo.png'" height="auto" width="100px" style="border-radius:50%;">
+		       		</center>	
+		      	</div>
+		      	<div class="col">
+		      		<b><h2>{{last_name}}, {{first_name}}</h2></b>
+					<h2>{{gender}}</h2>
+					<h2>{{birthday}}</h2>
+					<h2>{{address}}</h2>
+					<h2>{{contact_number}}</h2>
+
+				</div>
+			</div>
+			<center>
+				<button class="button button-balanced" ng-click="openCopyRiskWaiver()">
+					Open Signed Risk Waiver
+				</button>
+			</center>
+  		</div>
+
+	</div>
+	
+	<div class="card">
+		<div class="item {{headder_color}}">
+			<h2 class="title">Account Information</h2>
+		</div>
+	  	<div class="list">
+			<h2 id="username" class="item">Username: {{username}} <!-- <button class="button button-small ion-edit" ng-click="updateUsername()"></button> --></h2>
+			<h2 id="password" class="item" >Password: {{passwordMasked}} <button class="button button-small ion-edit" ng-click="updatePassword()"></button></h2>
+			<h2 id="email" class="item">Email: {{email}} <button class="button button-small ion-edit" ng-click="updateEmail()"></button></h2>
+	  	</div>
+	</div>
+	<!-- ng-click="gotoRelationships()" -->
+	<div class="card">
+		<div class="item item-divider {{headder_color}}">
+			<h2 class="title">Relationships</h2>
+			<button ng-hide="selected_genericRole=='GUARDIAN'" class="button ion-person-add" ng-click="showAddRelationship()"></button>
+		</div>
+		<div class="item item-button-right item-text-wrap" ng-repeat="acks in ack track by $index">
+
+			<h2 class="title"><b>{{relationship_first_name[$index]}} {{relationship_last_name[$index]}}</b></h2>
+			<button class="button button-{{sub_headder_color[$index]}} ion-information-circled" ng-click="toggleRel($index,infoStyle[$index])" style="border-radius: 50%;"></button>
+			
+			<h2 style="{{infoStyle[$index]}}"><br>Relationship:<br>
+				&nbsp&nbsp{{relationship_type_label[$index]}}<br><br>
+				Contact Info:<br>
+				&nbsp&nbsp{{relationship_email[$index]}}<br>
+				&nbsp&nbsp{{relationship_contact_number[$index]}}<br><br>
+				<button class="button button-positive button-full" ng-click="relationshipDetailsShow($index)"><b>View More Details<B></button>
+			</h2>
+
+	  	</div>
+	  	<div class="item" ng-hide="hideRelationship()">
+	  		<center>
+	  				<h2>No Relationships Yet</h2>
+	  		</center>
+	  	</div>
+	</div>
+
+	<div class="card" style="{{org_display}}">
+			<div class="list">
+			<div class="item {{headder_color}}">
+				<h2 class="title">Organization Details</h2>
+			</div>
+			<div class="item item-text-wrap" style="{{org_display}}">
+				<img id="orgImage" ng-src="{{orgPic}}" onerror="this.src='img/default_org_logo.png'" width="50px" height="auto" style="background-position: center;{{orgName}}">
+				<h2 id="organization">{{orgName}}</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="card" style="{{school_display}}">
+		<div class="item {{headder_color}}">
+			<h2 class="title">School Details</h2>
+		</div>
+		<div class="item item-text-wrap" style="{{school_display}}" ng-repeat="schoolName in schoolNames  track by $index">
+			<img id="schoolImage" ng-src="{{schoolPics[$index]}}" onerror="this.src='img/default_school.png'" width="50px" height="auto" style="background-position: center;{{school_display}}">
+	        <h2 id="schoolName">{{schoolNames[$index]}}</h2>
+        </div>
+	</div>
+
+	<div class="card" style="{{styleAndRanks_display}}" ng-hide="hideStyleNames()">
+	    <div class="item item-divider {{headder_color}}">
+	    	<h2 class="title">Programs and Ranks Details</h2>
+	    </div>
+        <div id="style" class="item" ng-repeat="styleName in styleNames">{{styleNames[$index]}} - {{rankNames[$index]}}
+
+        <ul style="border: 1px solid #000000">
+            <li style="background:#{{layer_1[$index]}};color:#{{layer_1[$index]}};">.</li>
+            <li style="background:#{{layer_2[$index]}};color:#{{layer_2[$index]}};">.</li>
+            <li style="background:#{{layer_3[$index]}};color:#{{layer_3[$index]}};">.</li>
+            <li style="background:#{{layer_4[$index]}};color:#{{layer_4[$index]}};">.</li>
+        </ul>
+		</div>
+	</div>
+		
+  </ion-content>
+</ion-view>

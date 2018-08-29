@@ -1,0 +1,33 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Yesterday's Report</h1>
+  </ion-header-bar >
+  <ion-content>
+  <div class="item item-divider row">
+    <div class="col" style="max-width: 120px;">
+      <img ng-src="{{selected_schoolPic}}" onerror="this.src='img/logo.png'" style="object-fit: cover;max-width: 100px;max-height: 100px;">  
+    </div>
+    <div class="col">
+    <h2> School Name: <p>{{selected_schoolName}}</p></h2><br>
+    <h2 ng-show="report_success"> Report Date: <p>{{report_date}}</p></h2>
+    
+    </div>
+  </div>
+
+<div class="item item-text-wrap" ng-show="report_success">
+  <h2> Total STUDENT Attendance: <b>{{report_students_total_attendance}}</b></h2><br>
+  <h2> Total LEAD Attendance: <b>{{report_leads_total_attendance}}</b></h2><br>
+  <h2> Total LEAD no shows <b>{{report_leads_total_no_show}}</b></h2><br>
+
+  <h2 ng-show="report_paysmart_on"> Total Members that have payment dues: <b>{{report_total_overdue}}</b></h2><br>
+  <h2 ng-show="report_paysmart_on"> Total Members that have incomplete paysmart details: <b>{{report_total_incomplete}}</b></h2>
+</div>
+
+<div class="item item-text-wrap" ng-show="report_success==false">
+<center>
+  {{report_msg}}
+</center>
+</div>
+  </ion-content>
+</ion-modal-view>
+

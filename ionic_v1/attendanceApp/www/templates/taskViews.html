@@ -1,0 +1,332 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-header">
+<!--     <h1 class="title">Leads</h1> -->
+  </ion-header-bar >
+    <ion-content>
+
+    <div class="card">
+      <div class="item item-divider" style="" ng-click="toggleMainTaskType()">
+      <center style="width:100%;">
+        <h7 class="title" style="font-size:100%;font-weight: bold;">{{mainTaskType_label}}</h7><icon class="ion-android-arrow-dropdown" style="max-height: 10px;float:right; font-size:200%;"></icon>
+      </center>
+        <!-- <button class="button button-positive ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button> -->
+      </div>
+
+      <div class="item" ng-show="taskType_dropdown_visibility" ng-click="selectTaskType(1)">
+        <center>
+          DNA Phone Calls <b>{{taskList_DNA_open}}</b>
+        </center>
+      </div>
+          
+      <div class="item" ng-show="taskType_dropdown_visibility" ng-click="selectTaskType(2)">
+        <center>
+          Returned From Holiday <b>{{taskList_ADHOC_open}}</b>
+        </center>
+      </div>
+      
+      <div class="item" ng-show="taskType_dropdown_visibility" ng-click="selectTaskType(3)">
+        <center>
+          Manager Tasks <b>{{taskList_MANAGER_open}}</b>
+        </center>
+      </div>
+
+      <div class="item" ng-show="taskType_dropdown_visibility" ng-click="selectTaskType(4)">
+        <center>
+          Post Card <b>{{taskList_POSTCARD_open}}</b>
+        </center>
+      </div>
+
+      <div class="item" ng-show="taskType_dropdown_visibility" ng-click="selectTaskType(5)">
+        <center>
+          New Student <b>{{taskList_NewStudent_open}}</b>
+        </center>
+      </div>
+
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-25 col-center" style="{{task_option_1}}" ng-click="selectSubTaskType(1)">
+        <center>
+            <h2 style="font-size: 150%;color:#297fb8;float:center;">{{mainTaskType_claimed_length}}</h2>
+            <p style="float:center;">Claimed Task</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_2}}" ng-click="selectSubTaskType(2)">
+        <center>
+            <h2 style="font-size: 150%;color:#ff6801;float:center;">{{mainTaskType_open_length}}</h2>
+            <p style="float:center;">To Do</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_3}}" ng-click="selectSubTaskType(3)">
+        <center>
+          <h2 style="font-size: 150%;color:#a500c8;float:center;">{{mainTaskType_all_length}}</h2>
+          <p style="float:center;">All Task</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_4}}" ng-click="selectSubTaskType(4)">
+        <center>
+            <h2 style="font-size: 150%;color:#a7a7a7;float:center;">{{mainTaskType_closed_length}}</h2>
+            <p style="float:center;">Closed Task</p>
+        </center>
+        </div>
+      </div>
+      <br>
+
+      <div class="item" ng-show="(selectedSubTaskType=='ALL' && mainTaskType_all_length == 0) || (selectedSubTaskType=='OPEN' && mainTaskType_open_length == 0) || (selectedSubTaskType=='CLOSED' && mainTaskType_closed_length == 0) || (selectedSubTaskType=='CLAIMED' && mainTaskType_claimed_length == 0)">
+        <center><b>No Task Available</b></center>
+      </div>
+
+      <div class="item item-avatar item-text-wrap" ng-repeat="taskList_alls in taskList_all" ng-show="(selectedSubTaskType=='ALL' && taskList_alls.taskType == mainTaskType_value && taskList_alls.status != 'CLOSED') || ((selectedSubTaskType=='OPEN' && taskList_alls.status == 'OPEN') && (taskList_alls.taskType == mainTaskType_value)) || ((selectedSubTaskType=='CLOSED' && taskList_alls.status == 'CLOSED') && (taskList_alls.taskType == mainTaskType_value)) || ((selectedSubTaskType=='CLAIMED'  && taskList_alls.status == 'CLAIMED') && (taskList_alls.peopleId == userId) && (taskList_alls.taskType == mainTaskType_value))">
+        <div class="row responsive-sm">
+          <div class="col item-avatar">        
+            <img ng-src="{{taskList_alls.studentImg}}" onerror="this.src='img/logo.png'"  style="background-position: center;border-radius: 50%; height:50px; width:50px;">
+            <h2>{{taskList_alls.studentName}}</h2>
+            <p ng-show="selectedSubTaskType=='ALL'">{{taskList_alls.taskType}} - <font style="{{taskList_alls.colorType}}">{{taskList_alls.status}}<font></p>
+            <p ng-show="taskList_alls.status=='UPCOMING'">{{taskList_alls.callBackDate}}</p>
+            <p ng-show="(taskList_alls.status=='CLOSED' || taskList_alls.status=='CLAIMED') && taskList_alls.people!='N/A'">Handler: {{taskList_alls.people}}</p>
+            <p ng-show="taskList_alls.status=='OPEN' || taskList_alls.status=='CLAIMED'">{{taskList_alls.createdOn}}</p>
+            <p ng-show="taskList_alls.status=='OPEN' || taskList_alls.status=='CLAIMED'">{{taskList_alls.lastAttended}}</p>
+            <p ng-show="taskList_alls.status=='OPEN' || taskList_alls.status=='CLAIMED'">{{taskList_alls.contacted}}</p>
+            <p ng-show="taskList_alls.status=='OPEN' || taskList_alls.status=='CLAIMED'">{{taskList_alls.due}}</p>
+
+          </div>
+          <div class="col ">
+            <button class="button button-small button-positive button-right" style="margin-top:3%;" ng-click="showtaskDetails(taskList_alls.id,'all')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------- -->
+   <!--    <hr>
+<div class="item item-text-wrap row row-center">
+        <div class="col col-25 col-center" style="{{task_option_3}}" ng-click="selectTaskOption(3)">
+        <center>
+            <h2 style="font-size: 150%;color:#297fb8;float:center;">{{taskList_claimed.length}}</h2>
+            <p style="float:center;">Claimed Task</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_2}}" ng-click="selectTaskOption(2)">
+        <center>
+            <h2 style="font-size: 150%;color:#ff6801;float:center;">{{taskList_open.length}}</h2>
+            <p style="float:center;">Today's Task</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_1}}" ng-click="selectTaskOption(1)">
+        <center>
+          <h2 style="font-size: 150%;color:#a500c8;float:center;">{{taskList_all.length}}</h2>
+          <p style="float:center;">All Task</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{task_option_4}}" ng-click="selectTaskOption(4)">
+        <center>
+            <h2 style="font-size: 150%;color:#a7a7a7;float:center;">{{taskList_closed.length}}</h2>
+            <p style="float:center;">Closed Task</p>
+        </center>
+        </div>
+      </div>
+
+    <div class="card" ng-show ="task_option=='1'">
+      <div class="item item-divider item-button-right bar" style="background-color:#a500c8;color:#ffffff;">
+        <h7 class="title">All Task</h7>
+        <button class="button button-positive ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button>
+      </div>
+
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-33 col-center" style="{{task_sub_option_1}}" ng-click="selectSubTaskOption(1,task_sub_style)">
+        <center>
+          <p style="float:center;">DNA <b>{{taskList_all_DNA_length}}</b></p>
+        </center>
+        </div>
+            
+        <div class="col col-33 col-center" style="{{task_sub_option_2}}" ng-click="selectSubTaskOption(2,task_sub_style)">
+        <center>
+            <p style="float:center;">ADHOC <b>{{taskList_all_ADHOC_length}}</b></p>
+        </center>
+        </div>
+
+        <div class="col col-33 col-center" style="{{task_sub_option_3}}" ng-click="selectSubTaskOption(3,task_sub_style)">
+        <center>
+            <p style="float:center;">New Student <b>{{taskList_all_NewStudent_length}}</b></p>
+        </center>
+        </div>
+
+      </div>
+      <div class="item" ng-show="(task_option=='1') && (taskSubStyleLabel=='DNA') && (taskList_all_DNA_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='1') && (taskSubStyleLabel=='ADHOC') && (taskList_all_ADHOC_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='1') && (taskSubStyleLabel=='New Student') && (taskList_all_NewStudent_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+
+      <div class="item item-avatar item-text-wrap" ng-repeat="taskList_alls in taskList_all" ng-show="taskList_alls.taskType==taskSubStyleLabel">
+        <div class="row responsive-sm">
+          <div class="col item-avatar">        
+            <img ng-src="{{taskList_alls.studentImg}}" onerror="this.src='img/logo.png'"  style="background-position: center;border-radius: 50%; height:50px; width:50px;">
+            <h2>{{taskList_alls.studentName}}</h2>
+            <p>{{taskList_alls.status}} - {{taskList_alls.taskType}}</p>
+            <p ng-show="taskList_alls.status=='UPCOMING'">{{taskList_alls.callBackDate}}</p>
+            <p ng-show="taskList_alls.status=='CLOSED'|| taskList_alls.status=='CLAIMED'">Handler: {{taskList_alls.people}}</p>
+          </div>
+          <div class="col ">
+            <button class="button button-positive button-right" style="margin-top:3%;" ng-click="showtaskDetails($index,'all')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" ng-show ="task_option=='2'">
+      <div class="item item-divider item-button-right bar" style="background-color:#ff6801;color:#ffffff;">
+        <h7 class="title">Today's Task</h7>
+        <button class="button button-positive  ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button>
+      </div>
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-33 col-center" style="{{task_sub_option_1}}" ng-click="selectSubTaskOption(1,task_sub_style)">
+        <center>
+          <p style="float:center;">DNA <b>{{taskList_open_DNA_length}}</b></p>
+        </center>
+        </div>
+            
+        <div class="col col-33 col-center" style="{{task_sub_option_2}}" ng-click="selectSubTaskOption(2,task_sub_style)">
+        <center>
+            <p style="float:center;">ADHOC <b>{{taskList_open_ADHOC_length}}</b></p>
+        </center>
+        </div>
+
+        <div class="col col-33 col-center" style="{{task_sub_option_3}}" ng-click="selectSubTaskOption(3,task_sub_style)">
+        <center>
+            <p style="float:center;">New Student <b>{{taskList_open_NewStudent_length}}</b></p>
+        </center>
+        </div>
+      </div>
+
+      <div class="item" ng-show="(task_option=='2') && (taskSubStyleLabel=='DNA') && (taskList_open_DNA_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='2') && (taskSubStyleLabel=='ADHOC') && (taskList_open_ADHOC_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+        <div class="item" ng-show="(task_option=='2') && (taskSubStyleLabel=='New Student') && (taskList_open_NewStudent_length==0)">
+        <center><b>No Task Available</b></center>
+      </div>
+
+      <div class="item item-avatar item-text-wrap" ng-repeat="taskList_opens in taskList_open" ng-show="taskList_opens.taskType==taskSubStyleLabel">
+        <div class="row responsive-sm">
+          <div class="col item-avatar">
+            <img ng-src="{{taskList_opens.studentImg}}" onerror="this.src='img/logo.png'"  style="background-position: center;border-radius: 50%;height:50px; width:50px;">
+            <h2>{{taskList_opens.studentName}}</h2>     
+          </div>
+          <div class="col ">
+            <button class="button button-positive" style="margin-top:3%;" ng-click="showtaskDetails($index,'open')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" ng-show ="task_option=='3'">
+      <div class="item item-divider item-button-right bar" style="background-color:#297fb8;color:#ffffff;">
+        <h7 class="title">Claimed Task</h7>
+        <button class="button button-positive  ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button>
+      </div>
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-33 col-center" style="{{task_sub_option_1}}" ng-click="selectSubTaskOption(1,task_sub_style)">
+        <center>
+          <p style="float:center;">DNA <b>{{taskList_claimed_DNA_length}}</b></p>
+        </center>
+        </div>
+            
+        <div class="col col-33 col-center" style="{{task_sub_option_2}}" ng-click="selectSubTaskOption(2,task_sub_style)">
+        <center>
+            <p style="float:center;">ADHOC <b>{{taskList_claimed_ADHOC_length}}</b></p>
+        </center>
+        </div>
+
+        <div class="col col-33 col-center" style="{{task_sub_option_3}}" ng-click="selectSubTaskOption(3,task_sub_style)">
+        <center>
+            <p style="float:center;">New Student <b>{{taskList_claimed_NewStudent_length}}</b></p>
+        </center>
+        </div>
+      </div>
+
+      <div class="item" ng-show="(task_option=='3') && (taskSubStyleLabel=='DNA') && (taskList_claimed_DNA_length==0)">
+        <center><b>No Task Claimed</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='3') && (taskSubStyleLabel=='ADHOC') && (taskList_claimed_ADHOC_length==0)">
+        <center><b>No Task Claimed</b></center>
+      </div>  
+      <div class="item" ng-show="(task_option=='3') && (taskSubStyleLabel=='New Student') && (taskList_claimed_NewStudent_length==0)">
+        <center><b>No Task Claimed</b></center>
+      </div>  
+      <div class="item item-avatar item-text-wrap" ng-repeat="taskList_claimeds in taskList_claimed" ng-show="taskList_claimeds.taskType==taskSubStyleLabel">
+        <div class="row responsive-sm">
+          <div class="col item-avatar">  
+            <img ng-src="{{taskList_claimeds.studentImg}}" onerror="this.src='img/logo.png'"  style="background-position: center;border-radius: 50%;height:50px; width:50px;">
+            <h2>{{taskList_claimeds.studentName}}</h2>
+            <p>Handler: {{taskList_claimeds.people}}</p>
+          </div>
+          <div class="col ">
+            <button class="button button-positive" style="margin-top:3%;" ng-click="showtaskDetails($index,'claimed')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" ng-show ="task_option=='4'">
+      <div class="item item-divider item-button-right bar" style="background-color:#a7a7a7;color:#ffffff;">
+        <h7 class="title">Closed Task</h7>
+        <button class="button button-positive  ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button>
+      </div>
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-33 col-center" style="{{task_sub_option_1}}" ng-click="selectSubTaskOption(1,task_sub_style)">
+        <center>
+          <p style="float:center;">DNA <b>{{taskList_closed_DNA_length}}</b></p>
+        </center>
+        </div>
+            
+        <div class="col col-33 col-center" style="{{task_sub_option_2}}" ng-click="selectSubTaskOption(2,task_sub_style)">
+        <center>
+            <p style="float:center;">ADHOC <b>{{taskList_closed_ADHOC_length}}</b></p>
+        </center>
+        </div>
+
+        <div class="col col-33 col-center" style="{{task_sub_option_3}}" ng-click="selectSubTaskOption(3,task_sub_style)">
+        <center>
+            <p style="float:center;">New Student <b>{{taskList_closed_NewStudent_length}}</b></p>
+        </center>
+        </div>
+      </div>
+
+      <div class="item" ng-show="(task_option=='4') && (taskSubStyleLabel=='DNA') && (taskList_closed_DNA_length==0)">
+        <center><b>No Task Closed</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='4') && (taskSubStyleLabel=='ADHOC') && (taskList_closed_ADHOC_length==0)">
+        <center><b>No Task Closed</b></center>
+      </div>
+      <div class="item" ng-show="(task_option=='4') && (taskSubStyleLabel=='New Student') && (taskList_closed_NewStudent_length==0)">
+        <center><b>No Task Closed</b></center>
+      </div>
+      <div class="item item-avatar item-text-wrap" ng-repeat="taskList_closeds in taskList_closed" ng-show="taskList_closeds.taskType==taskSubStyleLabel"> 
+        <div class="row responsive-sm">
+          <div class="col item-avatar">
+            <img ng-src="{{taskList_closeds.studentImg}}" onerror="this.src='img/logo.png'"  style="background-position: center;border-radius: 50%;height:50px; width:50px;">
+            <h2>{{taskList_closeds.studentName}}</h2>
+            <p>Handler: {{taskList_closeds.people}}</p>        
+          </div>
+          <div class="col ">
+            <button class="button button-positive" style="margin-top:3%;" ng-click="showtaskDetails($index,'closed')">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+<!--     <button class="button button-positive button-full" ng-click="showAddLead()">Add Lead</button> -->
+
+  </ion-content>
+</ion-modal-view>

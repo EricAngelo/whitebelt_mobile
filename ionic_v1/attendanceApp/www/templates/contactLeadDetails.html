@@ -1,0 +1,37 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="button button-energized bar-header">
+      <h1 class="title" style="color:white;">Contact Lead</h1>
+      <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeContactLeadDetails()">Back</button>
+  </ion-header-bar >
+  <ion-content >
+
+    <div class="row item item-text-wrap item-button-right">
+      <div class="col col-50">
+        <img ng-src="{{picture}}" onerror="this.src='img/default_user_logo.png'" height="100px" width="auto" style="border-radius:50%;" align='middle'>
+      </div>
+
+      <div class="col col-50">
+        <h2>{{contact_lead_name}} </h2>
+        <p>{{contact_lead_status}}</p>
+        <p>{{contact_lead_email}}</p>
+        <p>{{contact_lead_phone_number}}</p>
+      </div>
+    </div>
+
+<div class="card">
+  <div class="item item-divider bar-stable bar">
+    <h7 class="title">Actions</h7>
+  </div>
+  <button class="button button-full button-positive ion-ios-telephone" ng-click="callNumber('09335378721')"> Call</button>
+  <button class="button button-full button-calm ion-android-bookmark" ng-click="showBookTrialOption()"> Book Trial</button>
+  <button class="button button-full button-balanced ion-person-add" ng-click="showRiskWaiver()"> Make Member</button>
+  <button class="button button-full button-dark ion-close-circled" ng-click="showCloseLeadOption()"> Close Lead</button>
+</div>
+
+   
+
+  </ion-content>
+
+
+</ion-modal-view>
+

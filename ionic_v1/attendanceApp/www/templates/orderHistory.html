@@ -1,0 +1,39 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Purchased Items Logs</h1><button class="button button-gray ion-ios-arrow-back icon-left" ng-click="orderHistoryModal.hide()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+
+
+  <div class="row">
+    <div class="col col-33" style="border: 3px solid gray;">Name</div>
+    <div class="col col-33" style="border: 3px solid gray;">Remark(s)</div>
+    <div class="col col-33" style="border: 3px solid gray;">Date Purchased</div>
+  </div>
+  <div class="row" ng-repeat="orderHistorys in orderHistory" ng-click="showRecipt(orderHistorys.order_id)">
+
+    <div class="col col-33" style="border: 3px solid gray;">
+    <b style="background-color:#11c1f3;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==1">Added to cart <br></b>
+    <b style="background-color:#33cd5f;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==2">Purchased <br></b>
+    <b style="background-color:#387ef5;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==3">Consumed <br></b>
+    <b style="font-size:12px;background-color:#ffc900;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==4">Requested for Refund <br></b>
+    <b style="background-color:#33cd5f;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==5">Refund Success <br></b>    
+    <b style="background-color:#387ef5;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==6">Transferred <br></b>
+    <b style="background-color:#ffc900;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==7">Pending Payemnt <br></b>
+    <b style="background-color:#33cd5f;color:white;margin-left:-5px;padding-right:5px;padding-left:5px;" ng-show="orderHistorys.product_status_id==8">Approved Payment <br></b>
+
+    <img ng-src="{{orderHistorys.picture}}"  onerror="this.src='img/logo.png'" style="object-fit: cover;max-width: 80px;max-height: 100px;"><br>
+    {{orderHistorys.name}}</div>
+    <div class="col col-33" style="border: 3px solid gray;">Price: ${{orderHistorys.price}}<br>{{orderHistorys.quantity}}<br>{{orderHistorys.variable}}</div>
+    <div class="col col-33" style="border: 3px solid gray;">{{orderHistorys.date_purchased}}</div>
+  </div>
+
+
+  <div class="item" ng-show="orderHistory.length<=0">
+    <center>
+      <h2 class="title"><b>No History is Available </b><i class="ion-android-cart"></i></h2>
+    </center>
+  </div>
+
+  </ion-content>
+</ion-modal-view>

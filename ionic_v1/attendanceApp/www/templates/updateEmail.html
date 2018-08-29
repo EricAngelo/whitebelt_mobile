@@ -1,0 +1,36 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+
+      <h1 class="title">Update Email</h1>
+
+      <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeUpdateEmail()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+    <form name="emailForm" ng-submit="doUpdateEmail()">
+      <div class="list">
+
+        
+          <h5 style="margin-left: 10px;margin-right: 10px;">
+            Your new email will be receiveing the future notifications and mails once update is confirmed.
+            <h5 align="right" style="margin-right: 50px;">
+              <img ng-src='img/logo.png'" width="auto" height="30px" style="background-position: center;border-radius: 50%;">
+              Whitebelt.co
+            </h5>
+          </h5>
+
+        <label class="item item-input">
+          <span class="input-label">New Email</span>
+          <input type="text" ng-model="email" name="email">
+        </label>
+
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Update</button>
+        </label>
+      </div>
+    </form>
+    <div style="margin:10px;">
+      
+    </div>
+  </ion-content>
+</ion-modal-view>
+

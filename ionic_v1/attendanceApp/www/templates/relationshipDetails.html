@@ -1,0 +1,44 @@
+
+<ion-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-content>
+  <div class="card">
+    <div class="item item-divider {{headder_color}}">
+      <h7 class="title" style="text-transform: uppercase;"></h7>
+         <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeRelationshipDetails()">Back</button>
+    </div>
+    <div class="item item-text-wrap">
+    <center>
+    <!-- openUpdateSomeonesPersonalInfo(relationshipDetailsId) -->
+    <h2><b>{{relationship_type_label[relationshipDetailsId]}}</b></h2><br>
+      <img id="relationshipProfileImage" ng-src="{{relationship_pic}}" onerror="this.src='img/logo.png'" ng-click="picNotification(relationshipDetailsId)" height="auto" width="100px" style="border-radius:50%;">
+    </center>
+
+          <h2>Name: <b>{{relationship_first_name[relationshipDetailsId]}} {{relationship_last_name[relationshipDetailsId]}}</b></h2>
+          <h2>Allowed to check in for you? <b>{{relationship_permissions_label[relationshipDetailsId]}}</b></h2>
+          <h2>Allowed to edit your profile? <b>{{relationship_permissions_label[relationshipDetailsId]}}</b></h2>
+          <h2>Status: <b>{{data_ack_lbl}}</b></h2>
+<!--           <h2 ng-hide="relationship_type_label[relationshipDetailsId]=='Emergency Contact'">Relationship Type: <b>{{relationship_type_label[relationshipDetailsId]}}</b></h2> -->
+          <h2>Relationship Sub Type: <b>{{relationship_sub_type_label[relationshipDetailsId]}}</b></h2>
+          <h2>Email: <b>{{relationship_email[relationshipDetailsId]}}</b></h2>
+          <h2>Contact No: <b id="relationship_contact_number_lbl"></b></h2>
+
+          <br>
+          <button class="button button-full button-balanced ion-android-checkmark-circle icon-left" ng-click="checkInSomeone(relationship_existing_user[relationshipDetailsId])" ng-show="isValidCandidate">
+            Check in to a Class
+          </button>
+
+          <button class="button button-full button-positive ion-edit icon-left" ng-click="openUpdateSomeonesPersonalInfo(relationshipDetailsId)" ng-show="isValidCandidate2">
+            Edit Relationship Details
+          </button>
+
+          <button class="button button-full button-assertive ion-trash-b icon-left" ng-click="deleteRelationshipForm()">
+            Delete Relationship
+          </button>
+    </div>
+  </div> 
+ 
+  </ion-content>
+<!--   <div class="fixed-outside">
+
+  </div> -->
+</ion-view>

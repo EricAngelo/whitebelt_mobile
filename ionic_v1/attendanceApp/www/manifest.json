@@ -1,0 +1,12 @@
+
+{
+  "name": "WHITEBELT Mobile",
+  "short_name": "WHITEBELT Mobile",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "logo.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}

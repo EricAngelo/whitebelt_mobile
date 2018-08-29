@@ -1,0 +1,35 @@
+
+<ion-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-content class="has-header">
+  <div class="card">
+    <div class="item item-divider {{headder_color}}">
+      <h7 class="title">My Relationships</h7>
+      <button ng-hide="selected_genericRole=='GUARDIAN'" class="button ion-person-add" ng-click="showAddRelationship()"></button>
+      <!-- <button class="button button-positive  ion-android-sync" ng-click="setUpRelationshipDetails();showLoader()" style="border-radius: 50%;font-size: 150%"></button> -->
+      
+    </div>
+    <div class="list" ng-repeat="acks in ack track by $index">
+        <div class="item item-text-wrap item-button-right">
+<!-- {{relationship_id[$index]}} -->
+              <h2 class="title">Name:<br> 
+                &nbsp&nbsp{{relationship_first_name[$index]}} {{relationship_last_name[$index]}}</h2><br>
+              <h2 class="title">Relationship Type:<br> 
+                &nbsp&nbsp{{relationship_type_label[$index]}}</h2><br>
+              <h2 class="title">Contact Info: <br>
+                &nbsp&nbsp{{relationship_email[$index]}}</h2>
+              <h2 class="title" ng-hide="relationship_contact_number[$index]==''||relationship_contact_number[$index].toUpperCase()=='N/A'">&nbsp&nbsp{{relationship_contact_number[$index]}}</h2>
+              <button class="button button-center ion-ios-checkmark-outline icon-right"></button>
+          <button class="button button-small button-{{sub_headder_color[$index]}}" ng-click="relationshipDetailsShow($index)">View Details</button>
+       <hr>
+        </div>
+      </div>
+        <div class="item" ng-hide="hideRelationship()">
+          <center>
+              <h2>No Relationships</h2>
+          </center>
+        </div>
+      <button ng-hide="selected_genericRole=='GUARDIAN'" class="button button-full button-positive ion-person-add" ng-click="showAddRelationship()" >Add a Relationship</button>
+  </div>
+
+  </ion-content>
+</ion-view>

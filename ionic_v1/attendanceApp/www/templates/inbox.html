@@ -1,0 +1,41 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-header bar-stable">
+    <h1 class="title">Inbox</h1>
+          <button class="button button-positive ion-android-sync" ng-click="loadInbox()" style="border-radius: 50%;font-size: 150%"></button>
+  </ion-header-bar>
+  <ion-content>
+
+<div class="item item-divider item-balanced">
+<center style="width:100%;">
+  <h7 class="title" style="font-size:100%;font-weight: bold;">Notifications</h7><icon class="ion-email" style="max-height: 10px;float:right; font-size:200%;"></icon>
+</center>
+  <!-- <button class="button button-positive ion-android-sync" ng-click="loadTasks();showLoader()" style="border-radius: 50%;font-size: 150%"></button> -->
+</div>
+<div class="button-bar item-text-wrap">
+  <a class="button button-small button-balanced {{inboxView_style1}}" ng-click="toggleInboxView(1)">All <br><b>{{allMsgsLength}}</b></a>
+  <a class="button button-small button-balanced {{inboxView_style2}}" ng-click="toggleInboxView(2)">Opened <br><b>{{readMsgsLength}}</b></a>
+  <a class="button button-small button-balanced {{inboxView_style3}}" ng-click="toggleInboxView(3)">Unopened <br><b>{{unreadMsgsLength}}</b></a>
+</div>
+
+  <div class="item item-button-right item-text-wrap" ng-repeat="inboxContent in inboxContents track by $index" ng-show="inboxView==1 || (inboxView==2 && inboxContent.viewed==1) || (inboxView==3 && inboxContent.viewed==0)">
+    <p ng-show="inboxContent.viewed==0"><b>{{inboxContent.preview_message}}</b></p>
+    <p ng-hide="inboxContent.viewed==0">{{inboxContent.preview_message}}</p>
+    <p>{{inboxContent.date}}</p>
+
+    <button class="button button-small button-balanced" ng-click="showMessageDetails($index)">Read</button>
+  </div>
+
+  <div class="item" ng-show="inboxContents.length<=0">
+    <center><b>No New Messages</b></center>
+  </div>
+
+<!--   <ion-footer>
+      <button class="button button-full button-balanced" ng-click="openSendMessageModal()">Send a Message</button>
+  </ion-footer> -->
+  </ion-content>
+<!--     <div class="item item-input" style="position: absolute;top: 40px; width:100%;">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="search" placeholder="Search">
+    </div> -->
+</ion-modal-view>
+

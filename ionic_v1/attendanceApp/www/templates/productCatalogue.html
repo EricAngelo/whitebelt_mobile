@@ -1,0 +1,53 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+<!--   <ion-header-bar class="bar bar-header">
+    <h1 class="title">Leads</h1>
+  </ion-header-bar > -->
+  <ion-content style="position: absolute;top: 100px; width:100%;">
+
+
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-50 col-center" style="{{product_option_1}}" ng-click="selectProductCatalogType(1)">
+        <center>
+<!--             <h2 style="font-size: 150%;color:#297fb8;float:center;">{{mainTaskType_claimed_length}}</h2> -->
+            <p style="float:center;color:white;">Service Products</p>
+        </center>
+        </div>
+
+        <div class="col col-50 col-center" style="{{product_option_2}}" ng-click="selectProductCatalogType(2)">
+        <center>
+<!--             <h2 style="font-size: 150%;color:#ff6801;float:center;">{{mainTaskType_open_length}}</h2> -->
+            <p style="float:center;color:white;">Physical Products</p>
+        </center>
+        </div>
+      </div>
+
+
+  <div class="row" style="border-bottom: 1px solid gray;" ng-repeat="productLists in productList" ng-click="showproductDetails($index,'catalog')" ng-show="productLists.name.toUpperCase().indexOf(searchProduct.toUpperCase())>=0 && selected_product_option == productLists.product_type_id">
+    <div class="col" style="max-width: 120px;"><br>
+      <img ng-src="{{productLists.picture}}"  onerror="this.src='img/logo.png'" style="object-fit: cover;max-width: 80px;max-height: 100px;">
+    </div>
+    <div class="col">
+      <b style="background-color:red;color:white;position:absolute;right:0px;padding:0px;;margin-right:7px;padding-right:5px;padding-left:5px;" ng-show="productLists.recomended">Recommended</b>
+      <br>
+      <b>{{productLists.name}}</b> 
+      <p>Price: ${{productLists.price}}<br>
+      <!-- Description: {{productLists.description}}</p> -->
+    </div>
+  </div>
+  
+  <div class="item" ng-show="productList.length<=0 || (searchProducts_length<=0 && (searchProduct!=null || searchProduct!=''))">
+    <center>
+      <h2 class="title"><b>No Product is Available </b><i class="ion-android-cart"></i></h2>
+    </center>
+  </div>
+  <br>
+    <div style="height:100px;width:100%;background-color:transparent;"></div>
+  </ion-content>
+  <div class="item item-input item-text-wrap" style="position: absolute;top: 40px; width:100%;">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="searchProduct" placeholder="Search" ng-keyup="searchForAProduct()" ng-model="searchProduct" style="border-style:none;"><button class="button button-energized" style="font-size: 120%;border-radius: 50%;padding:0px;margin:0px;" ng-click="showCartDetails();"><i class="ion-android-cart" style="font-size: 100%;"></i> {{cartList.length}}</button>
+  </div>
+
+    <button class="button button-positive" style="position: absolute;bottom:40px; width:100%;" ng-click="showActiveProductList()"><b>Purchased Items</b></button>
+    <button class="button button-assertive button-full" style="position:absolute;bottom:0px;" ng-click="showOrderHistory()"><b>Purchased Items Log</b></button>
+</ion-modal-view>

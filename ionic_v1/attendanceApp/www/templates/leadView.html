@@ -1,0 +1,137 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-header">
+<!--     <h1 class="title">Leads</h1> -->
+  </ion-header-bar >
+    <ion-content>
+      <div class="item item-text-wrap row row-center">
+        <div class="col col-25 col-center" style="{{lead_option_1}}" ng-click="selectLeadOption(1)">
+        <center>
+          <h2 style="font-size: 150%;color:#ffc900;float:center;">{{countContactLeads}}</h2>
+          <p style="float:center;">Contact Leads</p>
+        </center>
+        </div>
+            
+        <div class="col col-25 col-center" style="{{lead_option_2}}" ng-click="selectLeadOption(2)">
+        <center>
+            <h2 style="font-size: 150%;color:#33cd5f;float:center;">{{countBookedLeads}}</h2>
+            <p style="float:center;">Booked Leads</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{lead_option_3}}" ng-click="selectLeadOption(3)">
+        <center>
+            <h2 style="font-size: 150%;color:#ef473a;float:center;">{{countClassVisitors+countAppointmentVisitors}}</h2>
+            <p style="float:center;">Visitors Today</p>
+        </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{lead_option_4}}" ng-click="selectLeadOption(4)">
+        <center>
+            <h2 style="font-size: 150%;color:#444444;float:center;">{{ccountClosedLeads}}</h2>
+            <p style="float:center;">Closed Leads</p>
+        </center>
+        </div>
+      </div>
+
+
+
+    <div class="card" ng-show ="lead_option=='1'">
+      <div class="item item-divider button-energized button button-full">
+        <h7 class="title">Contact Leads</h7>
+      </div>
+
+      <div class="item item-avatar item-text-wrap item-button-right" ng-repeat="contact_leads_datas in contact_leads_data track by $index">
+
+        <h2>{{contact_leads_datas.lastName}} , {{contact_leads_datas.firstName}}</h2>
+        <p>{{contact_leads_datas.status}}</p>
+        <button class="button button-positive" style="margin-top:3%;" ng-click="showcontactLeadDetails($index)">View Details</button>
+      </div>
+    </div>
+
+
+
+    <div class="card" ng-show ="lead_option=='2'">
+      <div class="item item-divider button-balanced button button-full">
+        <h7 class="title">Booked Leads</h7>
+      </div>
+      <div class="item item-avatar item-text-wrap item-button-right" ng-repeat="booked_leads_datas in booked_leads_data track by $index">
+        <h2>{{booked_leads_datas.lastName}} , {{booked_leads_datas.firstName}}</h2>
+        <p>{{booked_leads_datas.status}}</p> 
+        <button class="button button-positive" style="margin-top:3%;" ng-click="showBookedLeadDetails($index)">View Details</button>
+      </div>
+    </div>
+
+
+
+    <div class="card" ng-show ="lead_option=='3'">
+      <div class="item item-divider button-assertive button button-full">
+        <h7 class="title">Visitors Today</h7>
+      </div>
+       <div class="row">
+         <div class="col col-50">
+           <button class="button button-block button-assertive {{toggle_visitors_classes}}" ng-click="toggleVisitors()">Classes</button>
+         </div>
+         <div class="col col-50">         
+           <button class="button button-block button-assertive {{toggle_visitors_appointments}}" ng-click="toggleVisitors()">Appointments</button>
+         </div>
+       </div>
+
+
+
+      <div ng-show="showVisitorsClasses()">
+        <div class="row row-center" ng-repeat="class_visitors_datas in class_visitors_data track by $index">
+          <div class="col col-20">
+            <h7>{{class_visitors_data[$index]['timein']}}</h7>
+            <h7>{{class_visitors_data[$index]['timeout']}}</h7>
+          </div>
+          <div class="col col-33">
+            <h7>{{class_visitors_data[$index]['classname']}}</h7>  
+          </div>
+          <div class="col col-20">
+            <h7>{{class_visitors_data[$index]['date']}}</h7>
+          </div>
+          <div class="col col-10">
+            <button style="border-radius: 50%;background-color: #92d050;width:35px;height:35px;border:none;">1</button>
+          </div>
+          <div class="col col-10">
+            <button style="border-radius: 50%;background-color: #00b050;width:35px;height:35px;border:none;">3</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div ng-show="showVisitorsAppointments()">
+        <div class="row row-center" ng-repeat="appointment_visitors_datas in appointment_visitors_data track by $index">
+          <div class="col col-20">
+            <h7>{{appointment_visitors_data[$index]['time']}}</h7>
+          </div>
+          <div class="col col-33">
+            <h7>{{appointment_visitors_data[$index]['name']}}</h7>
+          </div>
+          <div class="col col-33">
+            <button class="button button-block button-positive" style="margin-top:3%;" ng-click="showVisitorsTodayDetails($index)">{{appointment_visitors_data[$index]['todo']}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="card" ng-show ="lead_option=='4'">
+      <div class="item item-divider button-dark button button-full">
+        <h7 class="title">Closed Leads</h7>
+      </div>
+
+      <div class="item item-avatar item-text-wrap item-button-right" ng-repeat="closed_leads_datas in closed_leads_data track by $index">
+        <h2>{{closed_leads_datas.lastName}} , {{closed_leads_datas.firstName}}</h2>
+        <p>{{closed_leads_datas.status}}</p> 
+        <button class="button button-positive" style="margin-top:3%;" ng-click="showClosedLeadDetails($index)">View Details</button>
+      </div>
+    </div>
+
+    <button class="button button-positive button-full" ng-click="showAddLead()">Add Lead</button>
+
+  </ion-content>
+</ion-modal-view>
+

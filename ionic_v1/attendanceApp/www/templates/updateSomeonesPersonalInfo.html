@@ -1,0 +1,165 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Update Student Info</h1>
+      <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeUpdateSomeonesPersonalInfo()">Back</button>
+  </ion-header-bar>
+  <ion-content>
+      
+        <center>
+        <div> 
+          <center>                   
+              <img id="updateSomeonesProfileImage" ng-src="{{someonestempSendImg}}" onerror="this.src='img/default_user_logo.png'" height="150px" width="auto" style="border-radius:50%;" align='middle' ng-click="someones_changePic()">
+          </center>
+        </div>
+<!--         <div class="row"> 
+          <div class="col"> 
+              <button class="button button-small button-light ion-ios-camera icon-left" id = "cameraTakePicture"  ng-click="cameraTakePicture()" >TAKE PICTURE</button>
+          </div>
+          <div class="col"> 
+            <button class="button button-small button-light ion-ios-grid-view icon-left" id = "selectPicture"  ng-click="openFilePicker()">SELECT PICTURE</button>
+          </div>
+        </div> -->
+        </center>
+
+      <div class="list">
+      <form ng-submit="doUpdateSomeonesPersonalInfo()">
+        <label class="item item-input">
+          <span id="someones_first_name_label" class="input-label">First Name*</span>
+          <input id="someones_first_name" type="text" ng-model="someones_first_name" name="someones_first_name">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_last_name_label" class="input-label">Last Name*</span>
+          <input id="someones_last_name" type="text" ng-model="someones_last_name" name="someones_last_name">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_birthdate_label" class="input-label">Birthdate*</span>
+          <input id="someones_birthdate" type="date" ng-model="someones_birthdate" name="someones_birthdate">
+        </label>
+
+        <label class = "item item-input">
+          <div id="someones_gender_label" class = "input-label">
+            Gender*
+          </div>
+
+          <select id="someones_gender" ng-model="someones_gender" style="text-align:left; background-color:transparent; border:none;">
+            <option ng-selected="{{someones_maleSelected}}">Male</option>
+            <option ng-selected="{{someones_femaleSelected}}">Female</option>
+          </select>
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_contact_number_label" class="input-label">Phone (Home)</span>
+          <input id="someones_contact_number" type="text" ng-model="someones_contact_number" name="someones_contact_number">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_phone_work_label" class="input-label">Phone (Work)</span>
+          <input id="someones_phone_work" type="text" ng-model="someones_phone_work" name="someones_phone_work">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_mobile_number_label" class="input-label">Mobile Number*</span>
+          <input id="someones_mobile_number" type="text" ng-model="someones_mobile_number" name="someones_mobile_number">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_country_label" class="input-label">Country*</span>
+          <!-- <input type="text" ng-model="country" name="country"> -->
+        <select id="someones_country" 
+        style="text-align:left; background-color:transparent; border:none;"
+            ng-model="someones_country" 
+            ng-options="someones_countryOption.name for someones_countryOption in someones_countryOptions"
+            ng-change="someones_changeCountry()">
+        </select>
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_state_label" class="input-label">State*</span>
+          <!-- <input type="text" ng-model="state" name="state"> -->
+        <select id="someones_state"
+            style="text-align:left; background-color:transparent; border:none;" 
+            ng-model="someones_state" 
+            ng-options="someones_stateOption.name for someones_stateOption in someones_stateOptions">
+        </select>
+        </label>
+      
+        <label class="item item-input">
+          <span id="someones_city_label" class="input-label">City*</span>
+          <input id="someones_city" type="text" ng-model="someones_city" name="city">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_street_label" class="input-label">Street*</span>
+          <input id="someones_street" type="text" ng-model="someones_street" name="street">
+        </label>
+
+        <label class="item item-input">
+          <span id="someones_zip_label" class="input-label">Zip*</span>
+          <input id="someones_zip" type="text" ng-model="someones_zip" name="zip">
+        </label>
+
+
+        
+<!--         <label class="item item-input">
+          <span class="input-label">First Name</span>
+          {{relationship_data_first_name}}
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Last Name</span>
+          {{relationship_data_last_name}}
+        </label> -->
+        <br><br>
+        <b>  Relationship Details<b/>
+        <hr>
+        <label class = "item item-input">
+          <div id="relationship_data_type_label" class = "input-label">
+            Relationship Type*
+          </div>
+          <select id="relationship_data_type" style="text-align:left; background-color:transparent; border:none;" ng-model="relationship_data_type" ng-init="relationship_data_type" ng-options="mainOption.name for mainOption in mainOptions"></select>
+        </label>
+
+        <label class = "item item-input">
+          <div id="relationship_data_sub_type_label" class = "input-label">
+            Relation To Student*
+          </div><br>
+          <select id="relationship_data_sub_type" style="text-align:left; background-color:transparent; border:none;" ng-model="relationship_data_sub_type" ng-init="relationship_data_sub_type" ng-options="option.name for option in options"></select>
+        </label>
+
+        <label class="item item-input">
+          <span id="relationship_data_email_label" class="input-label">Email</span>
+          {{relationship_data_email}}
+        </label>
+
+        <label class="item item-input">
+          <span id="relationship_data_contact_number_label" class="input-label">Contact Number*</span>
+          {{someones_mobile_number}}
+        </label>
+
+        <ion-toggle class="item-checkbox-right" ng-model="relationship_data_enable_checkin" name="relationship_data_enable_checkin" ng-show="relationship_data_main_type.value=='Payer'">
+          Enable to Check in & update profile in for you?
+        </ion-toggle>
+
+<!--         <ion-toggle class="item-checkbox-right" ng-model="relationship_data_enable_edit" name="relationship_data_enable_edit" ng-show="relationship_data_main_type.value=='Payer'">
+          Enable to update you info?
+        </ion-toggle> -->
+
+        <label class="item item-input">
+          <span class="input-label">Status</span>
+          {{data_ack_lbl}}
+        </label>
+        
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Update</button>
+        </label>
+
+      </div>
+    </form>
+    <div style="margin:10px;">
+
+    </div>
+  </ion-content>
+</ion-modal-view>
+

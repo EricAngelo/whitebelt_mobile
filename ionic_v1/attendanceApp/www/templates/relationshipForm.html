@@ -1,0 +1,77 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Update Relationship</h1>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeRelationshipForm()">Back</button> 
+  </ion-header-bar >
+  <ion-content>
+    <form name="dorelationshipForm" ng-submit="doRelationshipForm()">
+      <div class="list">
+
+        <label class="item item-input">
+          <span class="input-label">First Name</span>
+          {{relationship_data_first_name}}
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Last Name</span>
+          {{relationship_data_last_name}}
+        </label>
+
+        <label class = "item item-input">
+          <div class = "input-label">
+            Relationship Type
+          </div>
+          <select style="text-align:left; background-color:transparent; border:none;" ng-model="relationship_data_type" ng-init="relationship_data_type" ng-options="mainOption.name for mainOption in mainOptions"></select>
+        </label>
+
+        <label class = "item item-input">
+          <div class = "input-label">
+            Relation To Student
+          </div><br>
+          <h2>{{relationship_data_sub_type.name}}</h2>
+          
+<!--           <select style="text-align:left; background-color:transparent; border:none;" ng-model="relationship_data_sub_type" ng-init="relationship_data_sub_type" ng-options="option.name for option in options"></select> -->
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          {{relationship_data_email}}
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Contact Number</span>
+          {{relationship_data_contact_number}}
+        </label>
+
+        <ion-toggle class="item-checkbox-right" ng-model="relationship_data_enable_checkin" name="relationship_data_enable_checkin" ng-show="relationship_data_main_type.value=='Payer'">
+          Enable to Check in for you?
+        </ion-toggle>
+
+        <ion-toggle class="item-checkbox-right" ng-model="relationship_data_enable_edit" name="relationship_data_enable_edit" ng-show="relationship_data_main_type.value=='Payer'">
+          Enable to update profile for you?
+        </ion-toggle>
+
+        <label class="item item-input" >
+          <span class="input-label">Status</span>
+          {{data_ack_lbl}}
+        </label>
+
+
+
+<!--         <ion-checkbox class="item-checkbox-right" ng-model="existing" name="existing" checked>Existing</ion-checkbox> -->
+
+        <label class="item">
+          <input type="hidden" ng-model="indexId">
+          <button class="button button-block button-positive" type="submit">Update</button>
+        </label>
+      </div>
+    </form>
+    <div style="margin:10px;">
+      
+      <button class="button button-assertive button-full ion-trash-b icon-left" ng-click="deleteRelationshipForm()">Delete</button>
+    </div>
+<!--     <button ng-click="test()">Clear</button> -->
+
+  </ion-content>
+</ion-modal-view>
+

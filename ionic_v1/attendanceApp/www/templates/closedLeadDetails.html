@@ -1,0 +1,30 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="button button-dark bar-header">
+    <h1 class="title" style="color:white;">Closed Lead</h1>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeClosedLeadDetails()">Back</button>
+  </ion-header-bar >
+  <ion-content >
+
+    <div class="row item item-text-wrap item-button-right">
+      <div class="col col-50">
+        <img ng-src="{{picture}}" onerror="this.src='img/default_user_logo.png'" height="100px" width="auto" style="border-radius:50%;" align='middle'>
+      </div>
+
+      <div class="col col-50">
+        <h2>{{closed_lead_name}} </h2>
+        <p>{{closed_lead_status}}</p>
+        <p>Last Visited:<br>{{closed_lead_last_visited}}</p><br>
+        <p>Reason:<br>{{closed_lead_reason}}</p>
+      </div>
+    </div>
+
+<div class="card">
+  <div class="item item-divider bar-stable bar">
+    <h7 class="title">Actions</h7>
+  </div>
+  <button class="button button-full button-positive ion-ios-telephone"> Call back</button>
+</div>
+   
+  </ion-content>
+</ion-modal-view>
+

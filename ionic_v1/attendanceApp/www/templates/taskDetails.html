@@ -1,0 +1,64 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Task Details</h1>
+          <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closetaskDetails()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+
+    <div class="item item-text-wrap">
+      <div class="row row-responsive">
+        <div class="col col-33">
+          <center>
+              <img id="profileImage" ng-src="{{taskDetails_studentImg}}" onerror="this.src='img/logo.png'" style="border-radius:50%;object-fit: cover;width: 100px; height: 100px;">
+          </center> 
+        </div>
+        <div class="col">
+          <h2>{{taskDetails_studentName}}</h2>
+<!--           <p>{{taskDetails_status}}</p> -->
+            <p ng-show="taskDetails_status=='UPCOMING'">{{taskDetails_callBackDate}}</p>
+<!--             <p ng-show="taskDetails_status=='CLOSED'|| taskDetails_status=='CLAIMED'">Handler: {{taskList_alls.people}}</p> -->
+            <p>{{taskDetails_createdOn}}</p>
+            <p>{{taskDetails_lastAttended}}</p>
+            <p>{{taskDetails_contacted}}</p>
+            <p ng-show="taskDetails_status!='CLOSED'">{{taskDetails_due}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="item item-divider bar-stable bar">
+        <h7 class="title">Actions</h7>
+      </div>
+      <center class="item" ng-show="(taskDetails_status=='CLOSED'|| (taskDetails_status!='OPEN' && userId!=taskDetails_peopleId))">No Actions Available</center>
+      <center class="item" ng-show="taskDetails_status=='OPEN'&&userId!=taskDetails_peopleId">Claim Task to View Contacts</center>
+      <p class="item item-text-wrap item-button-right" ng-repeat="taskDetails_contactNames in taskDetails_contactName track by $index" ng-show="taskDetails_status=='CLAIMED'&&userId==taskDetails_peopleId && taskDetails_contactNumber[$index]!='N/A' && taskDetails_contactNumber[$index]!='' && taskDetails_contactNumber[$index]!=null">{{taskDetails_contactName[$index]}} - {{taskDetails_contactNumber[$index]}}<br>
+      {{taskDetails_contactRole[$index]}}<button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(taskDetails_contactNumber[$index])" style="border-radius:50%;"></button></p>
+      <button class="button button-full" style="background:#297fb8;Color:#ffffff;" ng-show="taskDetails_status=='OPEN'" ng-click="claimTask(taskDetails_x,taskDetails_listName,taskDetails_id);showLoader();">Claim </button>
+      <button class="button button-full ion-ios-checkmark-outline" style="background:#33cd5f;Color:#ffffff;" ng-show="taskDetails_status=='CLAIMED'&&userId==taskDetails_peopleId"  ng-click="completeTask(taskDetails_x,taskDetails_listName,taskDetails_taskType)">Complete </button>
+      <button class="button button-full" style="background:#ff6801;Color:#ffffff;" ng-show="taskDetails_status=='CLAIMED'&&userId==taskDetails_peopleId" ng-click="releaseTask(taskDetails_x,taskDetails_listName,taskDetails_id);showLoader();">Release </button>
+    </div> 
+
+    <div class="card" ng-show="taskDetails_suggestedScripts != 'N/A'"> 
+      <div class="item item-divider bar-stable bar">
+        <h2 class="title">Suggested Scripts</h2>
+      </div>
+      <div class="item item-text-wrap">
+        <p>{{taskDetails_suggestedScripts}}</p>
+      </div>
+    </div>
+
+    <div class="card" ng-show="taskDetails_status=='CLAIMED'||taskDetails_status=='CLOSED' ">
+      <div class="item item-divider bar-stable bar">
+        <h2 class="title">Handler</h2>
+      </div>
+      <div class="item item-text-wrap" ng-repeat="taskDetails_peoples in taskDetails_people" ng-show="taskDetails_people[$index] != 'N/A'">
+        <p><img ng-src="{{taskDetails_peoplesImg[$index]}}" onerror="this.src='img/default_user_logo.png'" height="auto" width="30px" style="border-radius:50%;"> {{taskDetails_people[$index]}}</p>
+      </div>
+    </div>
+
+    <div>
+
+    </div>
+  </ion-content>
+
+</ion-modal-view>

@@ -1,0 +1,32 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="button button-assertive bar-header">
+    <h1 class="title" style="color:white;">Visitor Today</h1>
+  </ion-header-bar >
+  <ion-content >
+
+    <div class="row item item-text-wrap item-button-right">
+      <div class="col col-50">
+        <img ng-src="{{picture}}" onerror="this.src='img/default_user_logo.png'" height="100px" width="auto" style="border-radius:50%;" align='middle'>
+      </div>
+
+      <div class="col col-50">
+        <h2>Name </h2>
+        <p>Status</p>
+        <p>Time of Arival</p>
+      </div>
+    </div>
+
+<div class="card">
+  <div class="item item-divider bar-stable bar">
+    <h7 class="title">Actions</h7>
+  </div>
+  <button class="button button-full button-positive ion-ios-telephone">Call back</button>
+  <button class="button button-full button-calm ion-android-bookmark">Book Trial</button>
+  <button class="button button-full button-balanced ion-person-add">Make Member</button>
+  <button class="button button-full button-royal ion-information-circled">More Details</button>
+  <button class="button button-full button-dark ion-close-circled">Close Lead</button>
+</div>
+   <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeVisitorsTodayDetails()">Back</button>
+  </ion-content>
+</ion-modal-view>
+

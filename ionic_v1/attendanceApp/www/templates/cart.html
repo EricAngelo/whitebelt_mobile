@@ -1,0 +1,55 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Cart</h1><button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeCartDetails()">Back</button>
+  </ion-header-bar >
+  
+  <ion-content style="position:absolute;top:90px;">
+  <div class="row">
+    <div class="col col-33" style="border: 3px solid gray;"><center>Product</center></div>
+<!--     <div class="col" style="border: 3px solid gray;">Description</div> -->
+    <div class="col col-20" style="border: 3px solid gray;"><center>Quantity</center></div>
+    <div class="col col-20" style="border: 3px solid gray;"><center>Price</center></div>
+    <div class="col"></div>
+  </div>
+
+  <div class="row" ng-repeat="cartLists in cartList track by $index">
+
+    <div class="col col-33" style="border: 3px solid gray;" ng-click="showproductDetails($index,'cart')">
+    <b style="background-color:red;color:white;margin-top:100px;width:100%;" ng-show="cartLists.type==2 && cartLists.stock==0">Out of Stock</b>
+        <center>
+          <img ng-src="{{cartLists.picture}}" onerror="this.src='img/logo.png'" style="object-fit: cover;max-width: 100px;max-height: 100px;">
+          <br>{{cartLists.name}}
+      </center>
+    </div>
+<!--     <div class="col" style="border: 3px solid gray;" ng-click="showproductDetails($index,'cart')">{{cartLists.description}}</div> -->
+    <div class="col col-20" style="border: 3px solid gray;" ng-click="showproductDetails($index,'cart')"><center>{{cartLists.quantity}}</center></div>
+    <div class="col col-20" style="border: 3px solid gray;" ng-click="showproductDetails($index,'cart')"><center>${{cartLists.price}}</center></div>
+    
+    <div class="col">
+        <center>
+            <button class="button button-balanced button-small button-full" ng-click="placeOrder(cartLists.product_id,cartLists.name,cartLists.price,cartLists.description,cartLists.picture,cartLists.id,1)" ng-hide="cartLists.type==2 && cartLists.stock==0"><b>Checkout Item<i class="ion-android-cart" style="font-size: 150%;"></i></b></button><button class="button button-assertive button-small button-full" ng-click="removeItemFromCart(cartLists.product_id)"><b>Remove Item <i class="ion-trash-b" style="font-size: 150%;"></i></b></button>
+
+        </center>
+    </div>
+  </div>
+  <div class="item item-text-wrap" ng-show="cartList.length<=0">
+    <center>
+      <b><h2 class="title">Cart is Empty <i class="ion-android-cart"></i></h2></b>
+    </center>
+  </div>
+<!--   <div class="item">
+    <b><p>Total: {{cartTotal}}</p></b>
+  </div> -->
+
+  </ion-content>
+<!--     <button class="button button-balanced button-full" style="position:absolute;top:40px;" ng-click="placeOrder2()"><b>Checkout All Items<i class="ion-android-cart" style="font-size: 150%;"></i></b></button>  -->
+</ion-modal-view>
+
+
+<!--       cartLists.id
+      
+      cartLists.type
+      cartLists.level
+      
+      cartLists.description
+       -->

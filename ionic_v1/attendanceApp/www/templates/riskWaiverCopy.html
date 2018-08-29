@@ -1,0 +1,14 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Signed Risk Waiver</h1>
+          <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="riskWaiverCopyModal.hide()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+
+    <div class="item item-text-wrap" ng-bind-html="risk_waiver_copy"></div>
+    <div id="sig_copy" style="border:3px;"></div>
+
+  </ion-content>
+</ion-modal-view>
+
+

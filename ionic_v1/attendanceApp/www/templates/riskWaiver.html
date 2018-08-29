@@ -1,0 +1,36 @@
+
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+      <h1 class="title">Risk Waiver</h1>
+      
+  </ion-header-bar >
+  <ion-content delegate-handle="modalContent" style="padding-top:40px;">
+
+  <div id="digital_risk_waiver" class="item item-text-wrap" ng-bind-html="risk_waiver"></div>
+  <b>
+    <p style="padding-left:20px;">Date: {{date_today}}</p>
+    <p style="padding-left:20px;">Signature: <button class="button button-small {{signed_label}}" >{{signature_label}}</button></p> 
+  </b>
+  <center>
+
+  <div id="sig" ng-click="checkSignature()" ng-mousemove="checkSignature()" ></div>
+<p style="clear: both;">
+<button class="button button-gray ion-ios-arrow-back icon-left" ng-click="digitalSignaturesModal.hide()">Back</button>
+<button id="clear" class="button button-assertive" ng-click="clearSignauteLable()">Clear</button>
+<button id="json" class="button button-balanced">Submit</button></p><br><br><br><br><br>
+
+<!--     <canvas id="mycanvas" width="498px" height="198px" style="border:2px solid;">
+    Canvas element not supported.
+    </canvas>
+    <br>
+
+    <button class="button button-balanced" ng-Click="initCanvas()"><b> Sign </b></button>
+    <button class="button button-energized" ng-Click="erase()"><b> Clear </b></button>
+    <button class="button button-positive" ng-Click="save()"><b> Save </b></button> -->
+  </center>
+
+   
+  </ion-content>
+
+</ion-modal-view>
+

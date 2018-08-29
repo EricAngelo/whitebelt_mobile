@@ -1,0 +1,55 @@
+
+<ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-content>
+	<div class="card">
+		<div class="item {{headder_color}}">
+			<h2 class="title">Personal Details</h2>
+			<button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeUserDetails()">Back</button>
+		</div>
+
+		<div class="item item-text-wrap">
+  			<div class="row row-responsive">
+	  			<div class="col col-33">
+	  				<center>
+		       			<img id="profileImage" ng-src="{{userDetails_picture}}" onerror="this.src='img/default_user_logo.png'" height="auto" width="100px" style="border-radius:50%;">
+		       		</center>	
+		      	</div>
+		      	<div class="col">
+		      		<h2 style="border-style: none;"><b>First Name:</b><br> {{userDetails_first_name}}<br><br>
+		      		<b>Last Name:</b><br> {{userDetails_last_name}}<br><br>
+					<b>Username:</b><br> {{userDetails_username}}<br><br>
+					<b>Email:</b><br> {{userDetails_email}}</h2>
+					<h2 class="item item-button-right" style="border-style: none;padding-left:o" ng-show="userDetails_contact_number != '' && userDetails_contact_number != 'N/A' && userDetails_contact_number != null "><b>Contact Number:</b><br> {{userDetails_contact_number}} <button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userDetails_contact_number)" style="border-radius:50%;text-align:center;"></button></h2>
+
+					<h2 class="item item-button-right" style="border-style: none;padding-left:o" ng-show="userDetails_phone_work != '' && userDetails_phone_work != 'N/A' && userDetails_phone_work != null "><b>Phone (Work):</b><br> {{userDetails_phone_work}} <button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userDetails_phone_work)" style="border-radius:50%;text-align:center;"></button></h2>
+
+					<h2 class="item item-button-right" style="border-style: none;padding-left:o" ng-show="userDetails_mobile_number != '' && userDetails_mobile_number != 'N/A' && userDetails_mobile_number != null "><b>Mobile Number:</b><br> {{userDetails_mobile_number}} <button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userDetails_mobile_number)" style="border-radius:50%;text-align:center;"></button></h2>
+				</div>
+			</div>
+  		</div>
+	</div>
+
+	<div class="card">
+		<div class="item {{headder_color}}">
+			<h2 class="title">Relationship Details</h2>
+		</div>
+		<div class="item item-button-right item-text-wrap" style="border-style: none;" ng-repeat="userRelationship_ids in userRelationship_id track by $index">
+			<h2 class="title" style="border-style: none;">
+			<b>{{userRelationship_first_name[$index]}} {{userRelationship_last_name[$index]}}</b><br>
+			{{userRelationship_type[$index]}}<br>
+			{{userRelationship_email[$index]}}</h2><br>
+			<h2 class="item item-button-right" style="border-style: none;" ng-show="userRelationship_contact_number[$index] != 'N/A' && userRelationship_contact_number[$index] != '' ">{{userRelationship_contact_number[$index]}}<button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userRelationship_contact_number[$index])" style="border-radius:50%;text-align:center;"></button></h2>
+
+			<h2 class="item item-button-right" style="border-style: none;" ng-show="userRelationship_phone_work[$index] != 'N/A' && userRelationship_phone_work[$index] != '' ">{{userRelationship_phone_work[$index]}}<button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userRelationship_phone_work[$index])" style="border-radius:50%;text-align:center;"></button></h2>
+
+			<h2 class="item item-button-right" style="border-style: none;" ng-show="userRelationship_mobile_number[$index] != 'N/A' && userRelationship_mobile_number[$index] != '' ">{{userRelationship_mobile_number[$index]}}<button class="button button-round button-positive ion-ios-telephone" ng-click="callNumber(userRelationship_mobile_number[$index])" style="border-radius:50%;text-align:center;"></button></h2> <hr>
+	  	</div>
+	  	<div class="item" ng-hide="userRelationship_id.length>0">
+	  		<center>
+	  				<h2>No Relationship</h2>
+	  		</center>
+	  	</div>
+	</div>
+  </ion-content>
+</ion-modal-view>
+

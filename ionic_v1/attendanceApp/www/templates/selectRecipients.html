@@ -1,0 +1,63 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-header bar-stable">
+    <h1 class="title">Send Message</h1>
+          <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeSelectRecipientsModal()">Back</button>
+  </ion-header-bar>
+  <ion-content>
+
+
+	<div class="item item-divider item-button-right bar" style="background-color:#e8e8e8;">
+	<font style="color:#e42112;font-size: 250%;" ng-click="selectAllUsers()" class="ion-ios-circle-outline" ng-hide="select_all_users"></font>
+	<font style="color:#e42112;font-size: 250%;" ng-click="selectAllUsers()" class="ion-ios-circle-filled" ng-show="select_all_users"></font>
+	<h2 class="title" ng-click="selectAllUsers()">Matched</h2> 
+	<button class="button ion-arrow-down-b" style="font-size: 150%;" ng-click="transferIndividualToSelected()"></button>
+	</div>
+	<div class="item item-input" style="width:100%;">
+	  <i class="icon ion-search placeholder-icon"></i>
+	  <input type="search" placeholder="Search" ng-keyup="searchForAClass()" ng-model="sendTo">
+	</div>
+<ion-scroll direction="y" style="height:40%;">
+	<div style="width:100%; {{sendToStyle}}">
+		<p ng-repeat="sendToUser in sendToUsers" style="padding: 3px;margin: 3px;">
+			<font style="color:#e42112;font-size: 250%;" ng-click="selectMatched($index)" class="ion-ios-circle-outline" ng-hide="sendToUser.selected"></font>
+			<font style="color:#e42112;font-size: 250%;" ng-click="selectMatched($index)" class="ion-ios-circle-filled" ng-show="sendToUser.selected"></font>
+			<img ng-src="{{selected_schoolPic}}" onerror="this.src='img/default_user_logo.png'" style="background-position: center;border-radius: 50%; height:40px;width:40px;"><font style="padding: 3px;margin: 3px;">{{sendToUser.name}}</font><hr></p>
+	</div>
+	<div style="width:100%;" ng-show="sendToUser.length<=0">
+		<center>
+			<b>None Selected</b>
+		</center>
+	</div>
+</ion-scroll>
+<center>
+	<button class="button button-positive button-small ion-arrow-up-b" ng-click="transferAllIndividualToMatched()">Transfer All</button>
+	<button class="button button-positive button-small" ng-click="toggleadd()">Submit</button>
+    <button class="button button-positive button-small ion-arrow-down-b" ng-click="transferAllIndividualToSelected()">Transfer All</button>
+</center>
+	<div class="item item-divider item-button-right bar" style="background-color:#e8e8e8;">
+	<font style="color:#e42112;font-size: 250%;" ng-click="selectAllUsersSelected()" class="ion-ios-circle-outline" ng-hide="select_all_selected_users"></font>
+	<font style="color:#e42112;font-size: 250%;" ng-click="selectAllUsersSelected()" class="ion-ios-circle-filled" ng-show="select_all_selected_users"></font>
+	<h2 class="title" ng-click="selectAllUsersSelected()">Selected</h2> 
+	<button class="button ion-arrow-up-b" style="font-size: 150%;" ng-click="transferIndividualToMatched()"></button>
+	</div>
+<ion-scroll direction="y" style="height:40%;">
+
+	<div style="width:100%; display:block;">
+		<p ng-repeat="sendToUserSelected in sendToUserSelected" style="padding: 3px;margin: 3px;">
+			<font style="color:#e42112;font-size: 250%;" ng-click="selectSelected($index)" class="ion-ios-circle-outline" ng-hide="sendToUserSelected.selected"></font>
+			<font style="color:#e42112;font-size: 250%;" ng-click="selectSelected($index)" class="ion-ios-circle-filled" ng-show="sendToUserSelected.selected"></font>
+			<img ng-src="{{selected_schoolPic}}" onerror="this.src='img/default_user_logo.png'" style="background-position: center;border-radius: 50%; height:40px;width:40px;"><font style="padding: 3px;margin: 3px;">{{sendToUserSelected.name}}</font><hr></p>
+	</div>
+	<div style="width:100%;" ng-show="sendToUserSelected.length<=0">
+		<center>
+			<b>None Selected</b>
+		</center>
+	</div>
+	
+</ion-scroll >
+
+  </ion-content>
+</ion-modal-view>
+
+
+

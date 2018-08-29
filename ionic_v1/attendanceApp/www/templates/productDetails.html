@@ -1,0 +1,37 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Product Details</h1>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeproductDetails()">Back</button>
+  </ion-header-bar >
+  <ion-content style="position: absolute;top: 40px; width:100%;">
+
+<div class="item item-text-wrap">
+<center>
+    <div class="col col-center">
+    <b style="background-color:red;color:white;position:absolute;right:0px;padding:0px;;margin-right:7px;padding-right:5px;padding-left:5px;" ng-show="currentProductIsRecomended">Recommended</b>
+      <img ng-src="{{product_picture}}" style="object-fit: cover;max-width: 300px;max-height: 300px;" onerror="this.src='img/logo.png'">
+    </div>
+  </center>
+    <div class="col col-left">
+      <h2>{{product_name}}</h2> 
+<!--       <p>Stock: {{product_stock}}</p> -->
+<!--       <p>Type: {{product_type}}</p>
+      <p>Level: {{product_level}}</p> -->
+      <p>Price: {{product_price}}</p>
+      <p>Description: {{product_description}}</p>
+    </div>
+
+</div> 
+<!-- <div class="row">
+  <label class="item item-input item-text-wrap" for="quanity"><span class="input-label">Quantity:</span> <input name="quanity" type="number" ng-model="product_quantity" ></label> 
+  <button class="button button-positive button-round ion-plus-round" style="border-radius: 50%;" ng-click="incrementQuantity()"></button>
+  <button class="button button-positive button-round ion-minus-round" style="border-radius: 50%;"  ng-click="decrementQuantity()"></button>
+</div> -->
+<!-- <button class="button button-full button-balanced"><i class="ion-android-checkmark-circle icon-left" style="font-size: 150%"></i> Proceed to Check Out</button> -->
+<button class="button button-full button-balanced" ng-click="addToCart(product_id,product_quantity,product_name)" ng-show="product_list=='catalog'"><i class="ion-android-cart icon-left" style="font-size: 150%";></i> Add To Cart</button>
+<button class="button button-full button-assertive" ng-click="removeItemFromCart(product_id)" ng-show="product_list=='cart'"><i class="ion-android-cart icon-left" style="font-size: 150%";></i> Remove from Cart</button>
+
+<br>
+  </ion-content>
+
+</ion-modal-view>

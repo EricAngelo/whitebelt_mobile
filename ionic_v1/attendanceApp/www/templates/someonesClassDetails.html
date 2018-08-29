@@ -1,0 +1,126 @@
+
+<ion-view style="border-style:none;z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header bar-button-right">
+    
+    <h4 style="color:white;" ng-click="showSomeonesChangeSchool()"><img ng-src="{{selected_someonesSchoolPic}}" style="background-position: center;border-radius: 50%; width:30px; height:30px;position: absolute;top: 10px;left:5px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{selected_someonesSchoolName}}</img>
+      </h4>
+    <button class="button button-gray ion-ios-arrow-back icon-left" style="position:absolute;right:10px;" ng-click="closeSomeonesClassDetails()">Back</button>
+  </ion-header-bar >
+  <ion-content style="position: absolute;top: 225px; width:100%;border-style:none;">
+
+      <div class="item item-text-wrap item-button-right" ng-repeat="someonesClass in someonesClasss track by $index" ng-hide="someonesShowAllClasses" >
+      <div style="background-color:#387ef5;font-size:12px;float:left;width:100px;color:white;margin-left:-14px;margin-top:-14px;padding-right:3px;padding-left:3px;" ng-show="someonesClass.reserved"><center>Reserved Class</center></div><br>
+<!--         <center>
+        <div class="row">
+          <div class="col col-50" >
+            <center> -->
+              <h2 ng-click="loadIntoClassDetails(someonesClass.id,someonesSeturnStatus($index,'someonesClass'),false,'someonesClass','{{someonesClass.scheduleId}}')">{{someonesClass.name}}</h2>
+              <p ng-click="loadIntoClassDetails(someonesClass.id,someonesSeturnStatus($index,'someonesClass'),false,'someonesClass','{{someonesClass.scheduleId}}')">{{someonesClass.time_in}} - {{someonesClass.time_out}}</p>
+              <p ng-click="loadIntoClassDetails(someonesClass.id,someonesSeturnStatus($index,'someonesClass'),false,'someonesClass','{{someonesClass.scheduleId}}')">{{someonesClass.location}}</p>
+<!--             </center>
+          </div>
+          <div class="col col-50">
+            <center> -->
+              <button class="button button-small {{someonesClass.checkedIn}}" ng-click="someonesToggleCheckin($index,'someonesClass',{{someonesClass.id}}, '{{someonesClass.name}}', '{{someonesClass.time_in}} - {{someonesClass.time_out}}','{{someonesClass.scheduleId}}')" ng-disabled="someonesSeturnStatus($index,'someonesClass')" style="position: absolute;right:20px;top:30px;">Check In</button>
+<!--             </center>
+          </div>
+          </div>
+        </center> -->
+      </div>
+
+      <!-- <button ng-click="test()">test</button> -->
+<!--<div style="transform: rotate(-45deg);opacity: 0.5;"><h1>
+      Comming Soon
+      </h1></div> -->
+
+      <div class="item item-text-wrap item-button-right" ng-repeat="someonesSearchClass in someonesSearchClasss track by $index" ng-hide="someonesShowSearchClasses">
+      <div style="background-color:#387ef5;font-size:12px;float:left;width:100px;color:white;margin-left:-14px;margin-top:-14px;padding-right:3px;padding-left:3px;" ng-show="someonesSearchClass.reserved"><center>Reserved Class</center></div><br>
+<!--         <center>
+        <div class="row">
+          <div class="col col-50" >
+            <center> -->
+              <h2 ng-click="loadIntoClassDetails(someonesSearchClass.id,someonesSeturnStatus($index,'someonesearchClass'),false,'someonesearchClass','{{someonesSearchClass.scheduleId}}')">{{someonesSearchClass.name}}</h2>
+              <p ng-click="loadIntoClassDetails(someonesSearchClass.id,someonesSeturnStatus($index,'someonesearchClass'),false,'someonesearchClass','{{someonesSearchClass.scheduleId}}')">{{someonesSearchClass.time_in}} - {{someonesSearchClass.time_out}}</p>
+              <p ng-click="loadIntoClassDetails(someonesSearchClass.id,someonesSeturnStatus($index,'someonesearchClass'),false,'someonesearchClass','{{someonesSearchClass.scheduleId}}')">{{someonesSearchClass.location}}</p>
+<!--             </center>
+          </div>
+          <div class="col col-50">
+            <center> -->
+              <button class="button button-small {{someonesSearchClass.checkedIn}}" ng-click="someonesToggleCheckin($index,'someonesearchClass',{{someonesSearchClass.id}}, '{{someonesSearchClass.name}}', '{{someonesSearchClass.time_in}} - {{someonesSearchClass.time_out}}','{{someonesSearchClass.scheduleId}}')" ng-disabled="someonesSeturnStatus($index,'someonesearchClass')" style="position: absolute;right:20px;top:30px;">Check In</button>
+<!--             </center>
+          </div>
+          </div>
+        </center> -->
+      </div>
+
+<!--         <div class="item item-text-wrap has-header" ng-hide="someonesShowNoResults()">
+        <center>
+          <h2 class="title">No Search Results Found <i class="ion-search"></i></h2>
+        </center>
+      </div> -->
+
+
+      <div class="item" ng-show="(someonesSearchClasss.length <= 0 )&& (!searchSomeonesClass=='')">
+        <center>
+          <h2>No Classes Available</h2>
+        </center>
+      </div>
+
+<button class="button button-small button-positive button-full" ng-click="loadMoreSomeonesClasses()" ng-show="(someonesClass.length==0 || someones_class_restriction_enabled==false) && (!pressedSomeonesMoreClasses)">Load More Classes</button>
+  </ion-content>
+
+  <div class="item item-divider item-button-right bar bar-stable" style="position: absolute;top: 120px;">
+    <h2 class="title">Classes</h2>
+  </div>
+  <label class="item item-input" style="position: absolute;top: 170px; width:100%;border-style:none;">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input id="searchSomeonesClass" type="search" placeholder="Search" ng-keyup="searchForSomeonesClass()" ng-model="searchSomeonesClass">
+  </label>
+
+  <div style="position: absolute;top: 40px; width:100%;">
+  <!--   <div class="row row-center" style="padding-top:0px;background-color:white;"> -->
+<!--     <div class="col col-20">
+      <center >
+        <i class="ion-android-checkmark-circle icon-large" style="font-size: 30px" ></i><br>
+        <p style="font-size: 10px">Checking into:</p>
+      </center>
+    </div> -->
+<!--     <div class="col" > -->
+<!--       <div class="item item-avatar" style="border-style:none;background-color: rgba(0, 0, 0, 0);" ng-click="showSomeonesChangeSchool()">
+          <img ng-src="{{selected_someonesSchoolPic}}" style="background-position: center;border-radius: 50%;">
+          <h2><br>{{selected_someonesSchoolName}}</h2>
+      </div> -->
+<!--     </div> -->
+<!--   <div class="row row-center" style="padding-bottom:0px;"> -->
+<!--     <div class="col col-20" style="padding-right:0px;padding-top:20px;padding-bottom:0px;">
+      <center>
+        <i class="ion-android-checkmark-circle icon-large" style="font-size: 30px" ></i><br>
+        <p style="font-size: 10px">Checking In:</p>
+      </center>
+    </div> -->
+<!--     <div class="col"> -->
+      <div class="item item-avatar item-text-wrap" style="border-style:none;background-color:transparent;">
+        <img ng-src="{{someones_picture}}" onerror="this.src='img/default_user_logo.png'" style="background-position: center;border-radius: 50%;">
+        <h2><br>{{someones_first_name}} {{someones_last_name}}</h2>
+<!--         <p>{{someones_email}}</p>
+        <p>{{someones_username}}</p> -->
+      </div>
+<!--     </div>
+  </div> -->
+
+
+  </div>
+
+
+  </div>
+
+  <div class="fixed-outside">
+
+  </div>
+</ion-view>
+
+
+
+
+
+

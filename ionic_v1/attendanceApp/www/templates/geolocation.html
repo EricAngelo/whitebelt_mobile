@@ -1,0 +1,39 @@
+  <!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 90%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 90%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" data-tap-disabled="true"></div>
+      <div class="row">
+        <div class="col col-50">
+          <button class="button button-block button-gray">Back</button>
+        </div>
+        <div class="col col-50">
+          <button class="button button-block button-balanced" onclick="test()">Check In</button>
+        </div>
+      </div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFsVHEic6D9uR1QutHdoRvKk1HMUJo91s&callback=initMap">
+    </script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,69 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+ receiptModal
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Receipt Details</h1>
+          <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="receiptModal.hide()">Back</button>
+  </ion-header-bar >
+  <ion-content>
+<div class="card">
+  <div class="item item-divider bar-stable">
+    <h2>Purchased: {{receipt[0].purchased_date}}</h2>
+  </div>
+  <div class="item item-text-wrap">
+    <div class="row">
+      <div class="col">
+        <h2>Payer: </h2>
+      </div>
+      <div class="col">
+        <h2>{{receipt[0].payer_name}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2>Product Name: </h2>
+      </div>
+      <div class="col">
+        <h2>{{receipt[0].product_name}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2>Price per unit: </h2>
+      </div>
+      <div class="col">
+        <h2>${{receipt[0].product_price}}</h2>
+      </div>
+    </div>      
+    <div class="row">
+      <div class="col">
+        <h2>Quantity: </h2>
+      </div>
+      <div class="col">
+        <h2>{{receipt[0].product_qty}}</h2>
+      </div>  
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h2>Processing fee:</h2>
+      </div>
+      <div class="col">
+        <h2>${{receipt[0].stripe_fee}}</h2>
+      </div>  
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h2>Total amount paid: </h2>
+      </div>
+      <div class="col">
+        <h2>${{receipt[0].total_amount}}</h2>
+      </div>  
+    </div>
+
+    </div>
+  </div>
+</div>
+
+  </ion-content>
+</ion-modal-view>

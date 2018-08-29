@@ -1,0 +1,7 @@
+{
+  "name": "attendanceApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

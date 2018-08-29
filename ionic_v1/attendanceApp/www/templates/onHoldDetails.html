@@ -1,0 +1,146 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+ <form >
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title"></h1>
+    <div class="button button-bar" style="width:140px;background-color:#160a47;border-style:none;">
+      <button class="button button-small" style="background-color:#fd5802;color:#ffffff;float:right;width:40px;margin:0px;padding:0px;" ng-click="saveOnholdDetails()"><b>Save</b></button><button class="button button-small button-gray" ng-click="closeOnHoldDetails()" style="width:40px;margin:0px;padding:0px;">Back</button>
+    </div>
+
+  </ion-header-bar>
+  <ion-content>
+
+  <div class="card">
+    <div class="item item-divider">
+      <div class="row row-responsive">
+        <div class="col col-33">
+          <center>
+              <img id="profileImage" ng-src="{{onHoldDetails_pic}}" onerror="this.src='img/default_user_logo.png'" style="border-radius:50%;object-fit: cover;width: 100px; height: 100px;">
+          </center> 
+        </div>
+        <div class="col">
+          <h2> {{onHoldDetails_name}}</h2><hr>
+          <p>Gender: {{onHoldDetails_gender}}</p>
+          <p>Birthdate: {{onHoldDetails_age}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row row-responsive">
+      <div class="col col-50">
+        <span>
+          <b>Effective Date</b><br>
+          <input id="onHoldDetails_effective_date" type="date" ng-model="onHoldDetails_effective_date" name="onHoldDetails_effective_date"> 
+        </span>
+        <b id="onHoldDetails_effective_date_msg" style="color:red;display:none;">Return date must be greater than effective date.</b>
+      </div>
+      <div class="col col-50">
+        <span>
+          <b>Return Date</b><br>
+          <input id="onHoldDetails_return_date" type="date" ng-model="onHoldDetails_return_date" name="onHoldDetails_return_date">
+          <b id="onHoldDetails_return_date_msg" style="color:red;display:none;">Return date must be greater than effective date.</b>
+        </span>
+      </div>
+    </div>
+
+    <div class="row row-responsive">
+      <div class="col col-50" >
+        <span>
+        <label for="onHoldDetails_status_student"><b>Status of the student</b></label>
+          <br>
+          <select id="onHoldDetails_status_student" ng-model="onHoldDetails_status_student" ng-change="selectStatus()" ng-options="studentStats.name for studentStats in studentStat" style="text-align:left; background-color:transparent; border:none;">
+<!--             <option>Injured</option>
+            <option>Sick</option>
+            <option>On a vacation</option>
+            <option>Struggling</option>
+            <option>Other</option> -->
+          </select>
+          <input id="onHoldDetails_status_student_other" ng-show="onHoldDetails_status_student.name=='Other'" class="item-input" type="text" ng-model="onHoldDetails_status_student_other" name="onHoldDetails_status_student_other" placeholder="other reason"> 
+        </span>
+        <b id="onHoldDetails_status_student_msg" style="color:red;display:none;">Select Status.</b>
+      </div>
+      <div class="col col-50">
+        <span>
+          <b>Billing Status</b><br>
+          <input id="onHoldDetails_hold_billing" type="checkbox" ng-model="onHoldDetails_hold_billing" name="onHoldDetails_hold_billing" > <label for="onHoldDetails_hold_billing"> Hold Student Billing</label>
+        </span><br><br>
+        <span ng-show="onHoldDetails_hold_billing==true">
+          <b>Set hold fees?</b>&nbsp;<br><input id="hold_fees" ng-model="hold_fees" type="radio" name="hold_fees" value="0">No &nbsp;<input id="hold_fees" ng-model="hold_fees" type="radio" name="hold_fees" value="1">Yes
+        </span><br>
+        <span style="margin-left:5px;" ng-show="onHoldDetails_hold_billing==true && hold_fees==1">
+          <input id="hold_amount" type="text" ng-model="hold_amount" name="hold_amount" placeholder="Hold amount ($20.00)" style="border: 1px solid gray;max-width:100%;width:100%;border-left: 2px solid gray;"><br>
+          <b id="onHoldDetails_hold_amount_msg" style="color:red;display:none;">The hold amount field is required when with hold fee is present.</b>
+        </span>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="item item-divider">
+      <h2><b>Follow up details</b></h2>
+    </div>
+    <div class="row row-responsive">
+      <div class="col col-50">
+        <span>
+          <b>Day</b><br>
+          <input id="onHoldDetails_follow_up_day" type="date" ng-model="onHoldDetails_follow_up_day" name="onHoldDetails_follow_up_day">
+          <b id="onHoldDetails_follow_up_day_msg" style="color:red;display:none;">Follow up date must be greater than effective date and lesser than the return date.</b>
+          
+        </span>
+      </div>
+      <div class="col col-50">
+        <span>
+        <label for="onHoldDetails_follow_up_time"><b>Time</b></label>
+          <br>
+          <select id="onHoldDetails_follow_up_time" ng-change="selectTime()" ng-model="onHoldDetails_follow_up_time" ng-options="times.name for times in time" style="text-align:left; background-color:transparent; border:none;">
+<!--             <option>01:00pm</option>
+            <option>02:00pm</option>
+            <option>03:00pm</option>
+            <option>04:00pm</option>
+            <option>05:00pm</option> -->
+          </select>
+          <b id="onHoldDetails_follow_up_time_msg" style="color:red;display:none;">Select time.</b>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-50">
+        <span>
+        <label for="onHoldDetails_method"><b>Method</b></label>
+          <br>
+          <select id="onHoldDetails_method" ng-change="selectMethod()" ng-model="onHoldDetails_method" ng-options="methods.name for methods in method" style="text-align:left; background-color:transparent; border:none;">
+          </select>
+          <b id="onHoldDetails_method_msg" style="color:red;display:none;">Select method.</b>
+        </span>
+      </div>
+    </div>
+
+<!--     <div class="row">
+      <div class="col">
+        <span>
+        <label for="onHoldDetails_template"><b>Template</b></label>
+          <br>
+          <select id="onHoldDetails_template" ng-change="selectTemplate()" ng-model="onHoldDetails_template" ng-options="templates.name for templates in template" style="text-align:left; background-color:transparent; border:none;">
+          </select>
+        </span>
+      </div>
+    </div> -->
+<!--     <span class="col">
+      <b>Template</b><br>
+      <select id="onHoldDetails_follow_up_template" name="onHoldDetails_follow_up_template" width="100%" style="text-align:left; background-color:transparent; border:none;">
+        <option>Formal</option>
+        <option>Imformal</option>
+        <option>SMS</option>
+        <option>Email</option>
+      </select>
+    </span><br> -->
+    <span class="col">
+      <b>Script</b><br>
+      <textarea id="onHoldDetails_follow_up_script" ng-model="onHoldDetailsFollowUpScript" rows="4" cols="50" style="border: 1px solid gray;max-width:100%;width:100%;"></textarea>
+      <b id="onHoldDetails_follow_up_script_msg" style="color:red;display:none;">Script is required.</b>
+    </span>
+  </div>
+
+  </ion-content>
+  </form>
+</ion-modal-view>

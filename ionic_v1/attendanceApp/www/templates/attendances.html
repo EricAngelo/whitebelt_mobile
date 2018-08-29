@@ -1,0 +1,88 @@
+ 
+<ion-view ng-click="idleIsFalse()">
+  <ion-content class="has-header">
+
+<!--           <div class="card" ng-hide="true">
+            <div class="item item-divider bar bar-stable ion-android-notifications-none" >Announcements</div>
+
+              <div class="item item-text-wrap">
+                <div class="row">
+                  <div class="col col-75">
+                    <center>
+                      <h2>What: ITF Tournament</h2>
+                          <p>When: Aug 26 2016</p>
+                          <p><a href="#" onclick="window.open('http://www.itfworldcup2016.com/', '_system', 'location=yes'); return false;">More Info</a></p>
+                    </center>
+                  </div>
+                  <div class="col col-25">
+                    <center>
+                      <img ng-src="img/ITF2016.jpg" onerror="this.src='img/logo.png'" width="80px" height="auto" style="background-position: center;border-radius: 50%;">
+                    </center>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item item-text-wrap">
+                <div class="row">
+                  <div class="col col-75">
+                    <center>
+                      <h2 class="title">Keep your Profile Updated</h2>
+                      <p><a href="#/app/profile">Update Profile</a></p>
+                    </center>
+                  </div>
+                  <div class="col col-25">
+                    <center>
+                      <img ng-src="img/logo.jpg" onerror="this.src='img/logo.png'" width="80px" height="auto" style="background-position: center;border-radius: 50%;">
+                    </center>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+
+          <div class="card">
+            <div class="item item-divider item-button-right bar bar-stable">
+             <h2 class="title" >Classes Available Today</h2> <img ng-src="{{selected_schoolPic}}" onerror="this.src='img/default_user_logo.png'" style="background-position: center;border-radius: 50%; height:30px;width:30px;"><button class="button button-positive  ion-android-sync" ng-click="showLoader();loadClasses(selected_schoolId)" style="border-radius: 50%;font-size: 150%"></button>
+             </div>
+             <!-- loadClasses(selected_schoolId);showLoader() -->
+          <div class="item item-text-wrap" ng-repeat="class in classs | limitTo:3">
+<div style="background-color:#387ef5;font-size:12px;float:left;width:100px;color:white;margin-left:-14px;margin-top:-14px;padding-right:3px;padding-left:3px;" ng-show="class.reserved"><center>Reserved Class</center></div>
+            <center>
+            <div class="row">
+
+              <div class="col col-50" ng-click="loadIntoClassDetails(class.id,returnStatus($index,'class'),true,'class','{{class.scheduleId}}')">
+                <center>
+                
+                  <h2>{{class.name}}</h2>
+                  <p>{{class.time_in}} - {{class.time_out}}</p>
+                  <p>{{class.location}}</p>
+
+                </center>
+              </div>
+
+              <div class="col col-50">
+                <center>
+                  <button class="button button-small {{class.checkedIn}}" ng-click="loadIntoClassDetails(class.id,returnStatus($index,'class'),true,'class',class.scheduleId)" ng-show="isASchoolStaff()" style="position: absolute;right:20px;top:30px;">View Details</button>
+                  <button class="button button-small {{class.checkedIn}}" ng-click="toggleCheckin($index,'class',class.id, class.name, '{{class.time_in}} - {{class.time_out}}',class.scheduleId)" ng-disabled="returnStatus($index,'class')" ng-show="!isASchoolStaff()" style="position: absolute;right:20px;top:30px;">Check In</button>
+                </center>
+              </div>
+              </div>
+            </center>
+
+          </div>
+              <div class="item" ng-hide="!(classs.length <= 0)">
+                <center>
+                  <h2>No Classes Available</h2>
+                </center>
+              </div>
+
+        </div>
+<!-- showTermsAndCondition() -->
+        <button class="button button-full button-pink" ng-click="moreClasses();loadMoreClasses()">
+          See More Classes
+        </button>
+
+      </ion-content>
+</ion-view>
+<script>
+

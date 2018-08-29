@@ -1,0 +1,26 @@
+
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+  	<center>
+    	<h1 class="title">Digital Signature</h1>
+    </center>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeDigitalSignature()">Back</button>
+  </ion-header-bar >
+  <ion-content scroll="false">
+<br>
+  <center>
+    <canvas id="mycanvas" width="400px" height="400px" style="border:2px solid;">
+      Canvas element not supported.
+    </canvas>
+    <br>
+    
+	   	<button class="button button-balanced" ng-Click="initCanvas()"><b>Sign</b></button>
+	    <button class="button button-energized" ng-Click="erase()"><b>Clear</b></button>
+	    <button class="button button-positive" ng-Click="save()"><b>Save</b></button>
+    </center>
+
+   
+  </ion-content>
+
+</ion-modal-view>
+

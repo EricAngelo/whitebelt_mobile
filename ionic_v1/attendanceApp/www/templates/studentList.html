@@ -1,0 +1,54 @@
+ <ion-modal-view style="z-index:auto;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar-stable bar bar-header">
+    <h1 class="title"><center>Students</center></h1>
+  </ion-header-bar >
+  <ion-content style="position: absolute;top: 125px; width:100%;">
+    <div class="item item-avatar item-text-wrap" ng-repeat="listedStudents in listedStudent" ng-show="((selected_students_active==1 && listedStudents.is_active==1 && listedStudents.on_hold == 0 && listedStudents.is_lead==0) || (selected_students_inactive==1 && listedStudents.is_active==0) || (selected_students_onHold == 1 && listedStudents.on_hold == 1) || (selected_students_lead==1 && listedStudents.is_lead==1))" style="{{listedStudents.is_lead_style}}">
+      <div class="row">
+        <div class="col item-avatar item-text-wrap">        
+          <img ng-src="{{listedStudents.pic}}" onerror="this.src='img/logo.png'" style="background-position: center;border-radius: 50%;" ng-click="viewStudentDetails(listedStudents.id)">
+          <h2 ng-click="viewStudentDetails(listedStudents.id)" >{{listedStudents.name}}</h2> 
+          <p ng-click="viewStudentDetails(listedStudents.id)" >{{listedStudents.username}}</p>
+          <p ng-show="listedStudents.on_hold==1" style="color:red; position:relative; right:10px"> &#x26D4; On Hold</p>
+        </div>
+        <div class="col">
+          <button class="button button-small button-balanced" ng-click="viewStudentDetails(listedStudents.id)" style="position: absolute;right:20px;">View Details</button>
+        </div>
+        
+      </div>
+    </div>
+
+
+  </ion-content>
+        <div class="item item-text-wrap row row-center" style="position: absolute;top: 45px; width:100%;background-color:#9c0f5f;padding:0px;margin:0px;">
+        <div class="col col-25 col-center" style="{{student_option_1}}" ng-click="selectStudentType(1)">
+          <center>
+              <h2 style="color:white;font-weight: bold;">Active</h2><!-- ({{students_active}}) -->
+          </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{student_option_2}}" ng-click="selectStudentType(2)">
+          <center>
+            <h2 style="color:white;font-weight: bold;">Inactive</h2><!-- ({{students_inactive}}) -->
+          </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{student_option_3}}" ng-click="selectStudentType(3)">
+          <center>
+            <h2 style="color:white;font-weight: bold;">Hold</h2><!-- ({{students_onHold}}) -->
+          </center>
+        </div>
+
+        <div class="col col-25 col-center" style="{{student_option_4}}" ng-click="selectStudentType(4)">
+          <center>
+            <h2 style="color:white;font-weight: bold;">Lead</h2><!-- ({{students_lead}}) -->
+          </center>
+        </div>
+
+      </div>
+      <div class="item item-input " style="position: absolute;top: 80px; width:100%;">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" ng-keyup="loadStudents()" ng-model="searchStudentsNameame">
+    </div>
+</ion-modal-view>
+

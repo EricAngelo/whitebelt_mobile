@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/ion-autocomplete/dist/ion-autocomplete.css" rel="stylesheet">
+
+    <style>
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)} 
+        to {-webkit-transform: scale(1)}
+    }
+        
+    @keyframes animatezoom {
+        from {transform: scale(0)} 
+        to {transform: scale(1)}
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+           display: block;
+           float: none;
+        }
+    }
+    </style>
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.js"></script>
+
+    <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/ng-cordova.js"></script>
+
+    
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+  </head> 
+
+   <script type="text/javascript">
+    function validateEmail(email){
+
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+    }
+
+      localStorage.setItem("base_url", "https://mobile.yourmartialarts.school/");////set api base url here
+      var db_url = localStorage.getItem("base_url");
+      $(document).ready(function(){
+
+         var username = "";
+
+         if(localStorage.getItem("userId")!=null && localStorage.getItem("userId")!="undefined"){
+            if (localStorage.getItem("isDetatchedUser")=="true")
+              window.location.href = "index2.html#/app/profile";
+            else{
+              if(localStorage.getItem("role_id")==5)
+                window.location.href = "index2.html#/app/attendances";
+              else
+                window.location.href = "index2.html#/app/profile";
+            }        
+         }
+
+        $("#resetBtn2").click(function(){
+
+          if (($("#emailFirstName").val()==null ||$("#emailFirstName").val()=='') || ($("#emailLastName").val()==null || $("#emailLastName").val()==''))
+            angular.element(document.getElementById('activate')).scope().warning("First name and Last name Required.");
+          else if($("#email2").val()=="" || $("#email2").val()==null || !validateEmail($("#email2").val()))
+            angular.element(document.getElementById('activate')).scope().warning("Valid email Required.");
+          else{
+            if(navigator.onLine){
+              angular.element(document.getElementById('activate')).scope().showLoader();
+              $.ajax({
+                url: db_url+"api/resetForgottenPassword/"+angular.element(document.getElementById('activate')).scope().getKey(),
+                type:"GET",
+                dataType:"json",
+                data: {
+                  fname: $("#emailFirstName").val(),
+                  lname: $("#emailLastName").val(),
+                  email: $("#email2").val()
+                },
+
+                success:function(response){
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  if(response=="success"){
+                    
+                    angular.element(document.getElementById('activate')).scope().success("Credentials has been sent. Please check your email.");
+
+                    $("#imglogo").css("display","none");
+                    $("#loading").css("display","block");
+                    $("#cancelLoader").css("display","none");
+                    $("#cancelReset").css("display","none");
+                    $("#msg").css("display","none");
+                    $("#sendMyInfo").css("display","none");
+                    $("#resetInfo").css("display","none");
+                    $("#wbHeader").css("display","none");
+                    setTimeout(function(){
+                      $("#loading").css("display","none");
+                      $("#resetPage").css("display","none");
+                      $("#loginPage").css("display","table");
+                    }, 3000);    
+                  }
+                  else{
+                    angular.element(document.getElementById('activate')).scope().warning(response);
+                  } 
+                },
+
+                error:function(err,response){
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  angular.element(document.getElementById('activate')).scope().error("Unable to send request. Please try again later.");    
+                } 
+              });
+
+            }
+            else{angular.element(document.getElementById('activate')).scope().hideLoader();
+                  angular.element(document.getElementById('activate')).scope().error("Please check your Internet connection.");
+            }
+          }
+        });
+
+
+
+        $("#resetBtn").click(function(){
+
+          if($("#email").val()=="" || $("#email").val()==null || !validateEmail($("#email").val()))
+            angular.element(document.getElementById('activate')).scope().warning("Valid email Required.");
+          else{
+            if(navigator.onLine){
+
+angular.element(document.getElementById('activate')).scope().showLoader();
+              $.ajax({
+                url: db_url+"api/GetUsernamesUnderEmail/"+angular.element(document.getElementById('activate')).scope().getKey()+"?email="+$("#email").val(),
+                type:"GET",
+                dataType:"json",
+                success:function(response){
+
+  if(response.length>1){
+  $("#id02").css("display","block");
+  angular.element(document.getElementById('activate')).scope().matchedUsers=[];
+  $("#listMatched").append('<p id = "listMatched2" align="left"></p>')
+    for (var i = 0; i < response.length; i++) {
+      angular.element(document.getElementById('activate')).scope().matchedUsers.push({
+       id: response[i]['id'],
+       username: response[i]['username'],
+      })
+      var temp = "";
+      temp = response[i]["username"].replace(/./g, '*');
+      temp=temp.substr(0, response[i]["username"].indexOf("."))+response[i]["username"].charAt(response[i]["username"].indexOf("."))+temp.substr(1+response[i]["username"].indexOf("."));
+      temp=temp.substr(0, response[i]["username"].indexOf(".")+1)+response[i]["username"].charAt(response[i]["username"].indexOf(".")+1)+temp.substr(1+response[i]["username"].indexOf(".")+1);
+      temp=temp.substr(0, 0)+response[i]["username"].charAt(0)+temp.substr(1);
+      
+      if(i==0)
+        $("#listMatched2").append('<input id="matchedNames'+i+'" type="radio" name="matchedNames" value='+response[i]["username"]+' checked ><label for="matchedNames'+i+'">'+temp+'</input><br>')
+      else
+        $("#listMatched2").append('<input id="matchedNames'+i+'" type="radio" name="matchedNames" value='+response[i]["username"]+'><label for="matchedNames'+i+'">'+temp+'</input><br>')
+    }
+    angular.element(document.getElementById('activate')).scope().hideLoader();
+  }
+else if(response.length==1){
+
+  $.ajax({
+    url: db_url+"api/resetForgottenPassword/"+angular.element(document.getElementById('activate')).scope().getKey()+"?username="+response[0]['username'],
+    type:"GET",
+    dataType:"json",
+    success:function(response){
+      if(response=="success"){
+        angular.element(document.getElementById('activate')).scope().success("Success!<br>Please check your email.<br><br>We have sent a link to:"+$("#email").val());
+        $('#listMatched2').remove();
+        
+        $("#email").val("");
+        
+        $("#imglogo").css("display","none");
+        $("#loading").css("display","block");
+        $("#cancelLoader").css("display","none");
+        $("#cancelReset").css("display","none");
+        $("#msg").css("display","none");
+        $("#sendMyInfo").css("display","none");
+        $("#resetInfo").css("display","none");
+        $("#wbHeader").css("display","none");
+        setTimeout(function(){
+          $("#loading").css("display","none");
+          $("#resetPage").css("display","none");
+          $("#loginPage").css("display","table");
+        }, 3000);  
+      }
+      else{
+        angular.element(document.getElementById('activate')).scope().warning("There is no record of you in our system - please speak to your Dojo Owner");
+      } 
+      angular.element(document.getElementById('activate')).scope().hideLoader();
+    },
+
+    error:function(err,response){
+      angular.element(document.getElementById('activate')).scope().hideLoader();
+      angular.element(document.getElementById('activate')).scope().error("Unable to send request. Please try again later.");    
+    } 
+  });
+}
+
+
+
+  else{
+    angular.element(document.getElementById('activate')).scope().hideLoader();
+    angular.element(document.getElementById('activate')).scope().warning("There is no record  of you in our system - please speak to your Dojo Owner");    
+  }
+
+                },
+
+                error:function(err,response){
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  angular.element(document.getElementById('activate')).scope().error("Unable to send request. Please try again later.");    
+                } 
+              });
+
+              // $.ajax({
+              //   url: db_url+"api/resetForgottenPassword/"+angular.element(document.getElementById('activate')).scope().getKey(),
+              //   type:"GET",
+              //   dataType:"json",
+              //   data: {
+              //     username: $("#username").val(),
+              //     email: $("#email").val()
+                    
+              //   },
+
+              //   success:function(response){
+              //     if(response=="success"){
+                    
+              //       $("#email").val("");
+              //       angular.element(document.getElementById('activate')).scope().success("Request has been sent. Please check your email.");
+                    
+                    
+              //       $("#loading").css("display","block");
+              //       // $("#cancelLoader").css("display","none");
+              //       setTimeout(function(){
+              //         hideLoader();
+              //         $("#resetPage").css("display","none");
+              //         $("#wbHeader").css("display","none");
+              //         $("#loginPage").css("display","table");
+              //       }, 3000);   
+              //     }
+              //     else{
+              //       angular.element(document.getElementById('activate')).scope().warning(response);
+              //     } 
+              //   },
+
+              //   error:function(err,response){
+              //     angular.element(document.getElementById('activate')).scope().error("Unable to send request. Please try again later.");    
+              //   } 
+              // });
+            }
+            else{
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  angular.element(document.getElementById('activate')).scope().error("Please check your Internet connection.");
+            }
+          }
+        });
+
+
+          $("#cancelReset").click(function(){
+            $("#imglogo").css("display","none");
+            $("#loading").css("display","block");
+            $("#cancelLoader").css("display","none");
+            $("#cancelReset").css("display","none");
+            $("#msg").css("display","none");
+            $("#sendMyInfo").css("display","none");
+            $("#resetInfo").css("display","none");
+            $("#wbHeader").css("display","none");
+            setTimeout(function(){
+              hideLoader();
+              $("#resetPage").css("display","none");
+              $("#loginPage").css("display","table");
+            }, 3000);            
+         });
+
+         $("#reset").click(function(){
+            $("#imglogo").css("display","block");
+            $("#loginPage").css("display","none");
+            $("#loading").css("display","block");
+            $("#cancelLoader").css("display","none");
+            $("#id01").css("display","none");
+            setTimeout(function(){hideLoader()
+
+            $("#resetPage").css("display","block");
+            $("#sendMyInfo").css("display","none");
+            $("#resetInfo").css("display","block");
+            $("#cancelReset").css("display","block");
+            $("#msg").css("display","block");
+            $("#wbHeader").css("display","block");
+          }, 3000);            
+         });
+
+          $("#newToWB").click(function(){
+            $("#imglogo").css("display","block");
+            $("#loginPage").css("display","none");
+            $("#loading").css("display","block");
+            $("#cancelLoader").css("display","none");
+  
+            $("#id01").css("display","none");
+            setTimeout(function(){
+            hideLoader()
+            $("#resetPage").css("display","block");
+            $("#sendMyInfo").css("display","block");
+            $("#resetInfo").css("display","none");
+            $("#cancelReset").css("display","block");
+            $("#msg").css("display","block");
+            $("#wbHeader").css("display","block");
+            }, 3000);            
+         });
+
+         $("#activate").click(function(){
+          if($('#username').val()=="" || $('#password').val()==""){
+            angular.element(document.getElementById('activate')).scope().warning("Both Username and Password fields are required!");
+          }
+          else{
+            $("#id01").css("display","none");
+            $("#loginPage").css("display","none");
+            $("#loading").css("display","block");
+            
+            username=$('#username').val();
+
+               $.ajax({
+                     url:db_url+"authuser/"+angular.element(document.getElementById('activate')).scope().getKey(),
+                     
+                     type:"GET",
+                     dataType:"json",
+                     data: {
+                         username: $('#username').val(),
+                         password: $('#password').val()
+                     },
+
+                     success:function(response){
+                      if(response['status']=="success"){
+                        localStorage.setItem("username",response['username']);
+                        localStorage.setItem("password",$('#password').val());
+                        $.ajax({
+                        url: db_url+"getuserdetails/"+angular.element(document.getElementById('activate')).scope().getKey()+"/"+response['username'],
+                        type:"GET",
+                        dataType:"json",
+
+                        success:function(response,statusCode){
+
+                        if (response['isActive']==0) {
+                          angular.element(document.getElementById('activate')).scope().warning("Your Account has been deactivated. Please speak to a School Manager.");
+                          $("#loading").css("display","none");
+                          $("#loginPage").css("display","table");
+                        }
+
+                        else
+{
+                          localStorage.setItem("userId",response['id']);
+                          localStorage.setItem("organization_id",response['organization_id']);
+                          localStorage.setItem("role_id",response['role_id']);
+                          localStorage.setItem("email",response['email']);
+                          localStorage.setItem("first_name",response['first_name']);
+                          localStorage.setItem("last_name",response['last_name']);
+                          localStorage.setItem("birthdate",response['birthdate']);
+                          localStorage.setItem("gender",response['gender']);
+                          localStorage.setItem("contact_number",response['contact_number']);
+                          localStorage.setItem("phone_work",response['phone_work']);
+                          localStorage.setItem("mobile_number",response['mobile_number']);
+                          localStorage.setItem("picture",db_url+""+response['picture']);
+                          localStorage.setItem("country",response['country']);
+                          localStorage.setItem("state",response['state']);
+                          localStorage.setItem("city",response['city']);
+                          localStorage.setItem("street",response['street']);
+                          localStorage.setItem("zip",response['zip']);
+                          localStorage.setItem("user_created_at",response['created_at']);
+                          localStorage.setItem("user_updated_at",response['updated_at']);
+                          localStorage.setItem("tmauEnrolled",response['tmauEnrolled']);
+                          localStorage.setItem("isDeleted",response['isDeleted']);
+                          localStorage.setItem("isActive",response['isActive']);
+                          localStorage.setItem("isHold",response['isHold']);
+                          
+
+                        $.ajax({
+                        url: db_url+"api/getorgdetails/"+angular.element(document.getElementById('activate')).scope().getKey()+"/"+response['organization_id'],
+
+                        type:"GET",
+                        dataType:"json",
+
+
+                        success:function(response){
+                          localStorage.setItem("orgName",response['name']);
+                          localStorage.setItem("orgPic",response['picture']);
+                          localStorage.setItem("orgDateFormat",response['australian_data']);
+
+                          $.ajax({
+                          url: db_url+"api/getSchoolIds/"+angular.element(document.getElementById('activate')).scope().getKey()+"/"+localStorage.getItem("userId"),
+                          type:"GET",
+                          dataType:"json",
+                          success:function(response){
+
+                            if(response.length<=0){
+                              localStorage.setItem("isDetatchedUser",true);
+            
+                              localStorage.setItem("schoolNames",[]);
+                              localStorage.setItem("schoolPics",[]);
+                              localStorage.setItem("schoolIds",[]);
+                              localStorage.setItem("genericSchoolIds",[]);
+                              localStorage.setItem("genericUserRoles",[]);
+
+                              localStorage.setItem("myIds",[]);
+                              localStorage.setItem("myRoles",[]);
+                              localStorage.setItem("mySchoolPics",[]);
+                              localStorage.setItem("mySchoolNames",[]);
+
+                              angular.element(document.getElementById('activate')).scope().welcome();
+                            }else{
+                              localStorage.setItem("isDetatchedUser",false);
+                              var uniqueSchoolIds =  [];
+                              var genericSchoolIds =  [];
+                              var genericUserRoles = [];
+
+                              for (var i = 0; i < response.length; i++){
+                                genericSchoolIds.push(response[i]['id']);
+
+                                if (response[i]['type']==""){
+                                  if(localStorage.getItem("role_id")==6)
+                                    genericUserRoles.push("GUARDIAN");
+                                  else if(localStorage.getItem("role_id")==5)
+                                    genericUserRoles.push("STUDENT");
+                                  else if(localStorage.getItem("role_id")==4)
+                                    genericUserRoles.push("INSTRUCTOR");
+                                  else if(localStorage.getItem("role_id")==3)
+                                    genericUserRoles.push("MANAGER");
+                                  else if(localStorage.getItem("role_id")==2)
+                                    genericUserRoles.push("ORGANIZATION OWNER");
+                                  else if(localStorage.getItem("role_id")==1)
+                                    genericUserRoles.push("ADMIN");
+                                  else{
+                                    genericUserRoles.push("NON MEMBER");
+                                  }
+                                }
+                                  
+                                else
+                                  genericUserRoles.push(response[i]['type'].toUpperCase());
+
+                                if (uniqueSchoolIds.length==0)
+                                  uniqueSchoolIds.push(response[i]['id']);
+
+                                else if (uniqueSchoolIds.indexOf(response[i]['id'])>=0)
+                                  continue;
+
+                                else
+                                  uniqueSchoolIds.push(response[i]['id']);
+                              }
+
+                              localStorage.setItem("genericSchoolIds",genericSchoolIds);
+                              localStorage.setItem("genericUserRoles",genericUserRoles);
+
+                              var schoolId = uniqueSchoolIds.length;
+                              var schoolIds = uniqueSchoolIds;
+
+                               for (var i = 0; i < uniqueSchoolIds.length; i++){
+                          
+                            $.ajax({
+                              url: db_url+"api/getschooldetails/"+angular.element(document.getElementById('activate')).scope().getKey()+"/"+uniqueSchoolIds[i],
+                              type:"GET",
+                              dataType:"json",
+
+                              success:function(response){
+
+                              if(localStorage.getItem("schoolNames")){
+
+                                var schoolNames = localStorage.getItem("schoolNames").split(",");
+                                var schoolPics = localStorage.getItem("schoolPics").split(",");
+                                var allSchoolIds  = localStorage.getItem("schoolIds").split(",");
+                                
+                                schoolNames.push(response['name']);
+                                schoolPics.push(db_url+""+response['picture']);
+                                allSchoolIds.push(response['id']);
+
+                                localStorage.setItem("schoolNames",schoolNames);
+                                localStorage.setItem("schoolPics",schoolPics);
+                                localStorage.setItem("schoolIds",allSchoolIds);
+                              }
+
+                              else{
+                                localStorage.setItem("schoolNames",response['name']);
+                                localStorage.setItem("schoolPics",db_url+""+response['picture']);
+                                localStorage.setItem("schoolIds",response['id']);
+                              }
+
+                              if(schoolId==localStorage.getItem("schoolNames").split(",").length){
+
+                                var myIds = [];
+                                var mySchoolPics = [];
+                                var myRoles = [];
+                                var mySchoolNames = [];
+
+                                var temp2Ids = localStorage.getItem("genericSchoolIds").split(",");
+                                var temp2Roles = localStorage.getItem("genericUserRoles").split(",");
+
+                                var tempIds = localStorage.getItem("schoolIds").split(",");
+                                var tempSchoolPics = localStorage.getItem("schoolPics").split(",");
+                                var tempSchoolNames = localStorage.getItem("schoolNames").split(",");
+
+                                for (var i = 0; i < temp2Ids.length; i++) {
+                                  for (var j = 0; j < tempIds.length; j++) {
+                                    if(temp2Ids[i]==tempIds[j]){
+                                      myIds.push(temp2Ids[i]);
+                                      myRoles.push(temp2Roles[i]);
+                                      mySchoolPics.push(tempSchoolPics[j]);
+                                      mySchoolNames.push(tempSchoolNames[j]);
+                                    }
+                                  }
+                                }
+
+                                if(myIds.length>0 && localStorage.getItem("role_id")==6){
+                                  localStorage.setItem("role_id",6);
+                                }
+
+                                localStorage.setItem("myIds",myIds);
+                                localStorage.setItem("myRoles",myRoles);
+                                localStorage.setItem("mySchoolPics",mySchoolPics);
+                                localStorage.setItem("mySchoolNames",mySchoolNames);
+                                angular.element(document.getElementById('activate')).scope().welcome();
+                              }
+                              },
+
+                              error:function(err){
+
+                              angular.element(document.getElementById('activate')).scope().error("Unable to retrieve School details.");
+                              $("#loading").css("display","none");
+                              $("#loginPage").css("display","table");
+                              }
+                            });
+
+                          }
+
+                        }
+                      },
+
+                      error:function(err){
+
+                      angular.element(document.getElementById('activate')).scope().error("Unable to retrieve School credentials.");
+                      $("#loading").css("display","none");
+                      $("#loginPage").css("display","table");
+                      }
+                      });
+
+                      },
+
+                    error:function(err){
+
+                    angular.element(document.getElementById('activate')).scope().error("Unable to retrieve organization credentials.");
+                    $("#loading").css("display","none");
+                    $("#loginPage").css("display","table");
+                    }
+                    });
+}
+                    },
+                    error:function(err,statusCode){
+
+                          angular.element(document.getElementById('activate')).scope().error("Unable to retrieve credentials.");
+                      $("#loading").css("display","none");
+                      $("#loginPage").css("display","table");
+                    }
+                    });
+                    
+                  }
+                  else{
+                    angular.element(document.getElementById('activate')).scope().warning(response['message']); 
+                    $("#id01").css("display","none");
+                    $("#loading").css("display","none");
+                    $("#loginPage").css("display","table");
+                  }
+                 },
+
+                 error:function(err)
+                 {
+
+                  if (navigator.onLine) {
+                    angular.element(document.getElementById('activate')).scope().error("Unable to connect to the server.");
+                  } 
+
+                  else {
+                    angular.element(document.getElementById('activate')).scope().error("Please check your Internet connection.");
+                  }
+                    $("#loading").css("display","none");
+                    $("#loginPage").css("display","table");
+                 }
+             });
+
+          }
+         });
+
+
+         function hideLoader(){
+            $("#loading").css("display","none");
+         }
+
+      });
+
+      document.addEventListener("backbutton", function() {
+            navigator.app.exitApp();
+      }, false);
+
+          function sendReq(){
+            $("#id02").css("display","none");
+            angular.element(document.getElementById('activate')).scope().showLoader();
+              $.ajax({
+                url: db_url+"api/resetForgottenPassword/"+angular.element(document.getElementById('activate')).scope().getKey()+"?username="+$('input[name=matchedNames]:checked').val(),
+                type:"GET",
+                dataType:"json",
+                success:function(response){
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  if(response=="success"){
+                    angular.element(document.getElementById('activate')).scope().success("Please check your email.<br><br>We have sent a link to <br>this email address:<br>"+$("#email").val());
+                    $('#listMatched2').remove();
+                    
+                    $("#email").val("");
+                    
+                    $("#imglogo").css("display","none");
+                    $("#loading").css("display","block");
+                    $("#cancelLoader").css("display","none");
+                    $("#cancelReset").css("display","none");
+                    $("#msg").css("display","none");
+                    $("#sendMyInfo").css("display","none");
+                    $("#resetInfo").css("display","none");
+                    $("#wbHeader").css("display","none");
+                    setTimeout(function(){
+                      $("#loading").css("display","none");
+                      $("#resetPage").css("display","none");
+                      $("#loginPage").css("display","table");
+                    }, 3000);  
+                  }
+                  else{
+                    angular.element(document.getElementById('activate')).scope().warning("There is no record of you in our system - please speak to your Dojo Owner");
+                  } 
+                },
+
+                error:function(err,response){
+                  angular.element(document.getElementById('activate')).scope().hideLoader();
+                  angular.element(document.getElementById('activate')).scope().error("Unable to send request. Please try again later.");    
+                } 
+              });
+           
+          };
+
+   </script>
+  <body ng-app="starter" ng-controller="AppCtrl">
+
+
+        <div id="loginPage" style="display: table;position: absolute;height: 100%; width: 100%;">
+          <div style="display: table-cell;vertical-align: middle;">
+            <div style="margin-left: auto;margin-right: auto;">
+              <CENTER>
+               <img src="img/logo.png" width="50%" height="50%">
+               <br>
+
+              <h1>Whitebelt Mobile</h1>
+              <button class="button button-block button-positive" onclick="document.getElementById('id01').style.display='block';">Login</button>
+              <button id="newToWB" class="button button-block button-light">New to Whitebelt Mobile?</button>
+
+            </CENTER>
+            </div>
+          </div>
+        </div>
+
+        <div id = "loading" style = "display:none;background-color:white; width:100%; height:100%;">
+          <center>
+            <div style = "margin-top:55%;">
+               <img src="img/martialarts.gif"/>
+            </div>
+          </center>
+        </div>
+
+        <div id="resetPage" style="display:none;">
+        <div id="wbHeader" style = "display:block;border-bottom:10px solid #9c0f5f;background-color: #160a47;height:40px;">
+          
+<!--           <font style="margin-left:20px;margin-top:-20px;">White Belt</font> -->
+          <button id="cancelReset" class="button button-small button-gray ion-ios-arrow-back icon-left" style="position:absolute; top:8px; right:10px;">Back</button>
+        </div>
+        <div class="" id="resetInfo" style="border:0px solid gray;margin:5px;">
+         <div class="item-text-wrap" style=""><br>
+            <p>
+            <label class="">
+              <input id="email" type="text" placeholder="Email" style="border-bottom:1px solid gray;width:100%;"> 
+            </label>
+            <p style="font-size:150%;font-weight: bold;border-style:none;">Welcome to WhiteBelt</p><br>
+              To reset your password, please type in your email address.
+              <br><br>
+              You will be notified through your email and be given a link to nominate your password.
+            </p>
+
+         </div>
+              <button id="resetBtn" class="button button-block button-positive">Reset</button>
+        </div>
+
+
+        <div class="" id="sendMyInfo" style="">
+         <div class="item item-text-wrap" style="">
+            <label class="item item-input">
+              <input id="emailFirstName" type="text" placeholder="First Name">
+            </label>
+
+            <label class="item item-input">
+              <input id="emailLastName" type="text" placeholder="Last Name">
+            </label>
+
+            <label class="item item-input">
+              <input id="email2" type="text" placeholder="Email">
+            </label>
+            <br>
+            <p style="font-size:150%;font-weight: bold;">Welcome to WhiteBelt</p><br>
+            <h4>
+              If your martial arts school uses the WhiteBelt software you can claim your WhiteBelt mobile log in details.<br><br>
+
+              Please enter your first name and last name and email address (the email address your martial arts school will have on file).<br><br>
+
+              You will receive an email within 20 minutes with your details.
+            </h4>
+
+
+              <button id="resetBtn2" class="button button-block button-positive">Send Me My New Credentials</button>
+          </div>
+          </div>
+
+          <img id="imglogo" class="item item-avatar" style="position:absolute;left:-60px;top:-5px;background-color:transparent;border-style:none;" src="img/logo.png" height="60px" width="auto">
+
+          <center>
+          <h6 id="msg">Didn't receive any email? Please speak to your Instructor.</h6>
+          </center>
+        </div>
+
+      <div id="id01" class="modal"> 
+        <button class="ion-close-circled" style="position: absolute;right:5%; top: 45px;height: 50px;width: 50px;border-radius: 50px;font-size: 40px;border: none; background-color:transparent;" onclick="document.getElementById('id01').style.display='none';"></button>
+        <form class="modal-content animate">
+
+          <div class="container">       
+          
+              <div class="item item-divider">Login</div>
+              <div class="list">
+                <label class="item item-input">
+                  <input id="username" type="text" name="username" ng-model="username" placeholder="Username">
+                </label>
+                <label class="item item-input">
+                  <input id="password" type="password" name="password" ng-model="password" placeholder="Password">
+                </label>
+                <button id = "activate" class="button button-block button-positive">Login</button>
+                <button id="reset" class="button button-block button-light">Forgot Your Password?</button>  
+                </div>
+                
+            </div>
+        </form>
+      </div>
+
+      <div id="id02" class="modal"> 
+        <button class="ion-close-circled" style="position: absolute;right:5%; top: 45px;height: 50px;width: 50px;border-radius: 50px;font-size: 40px;border: none; background-color:transparent;" onclick="document.getElementById('id02').style.display='none';document.getElementById('resetInfo').style.display='block';document.getElementById('cancelReset').style.display='block';document.getElementById('msg').style.display='block';$('#listMatched2').remove();"></button>
+        <form class="modal-content animate">
+
+          <div class="container">       
+          
+              <div class="item item-divider item-text-wrap"><b>Note: </b>The email address that you entered is used by multiple accounts. Please choose which of the following censored usernames matches your username.</div>
+              <div id="" class="item">
+                  <center id = "listMatched"></center>
+                <button id = "activateReset" class="button button-block button-positive" onclick="sendReq()">Submit</button>
+              </div>
+                
+            </div>
+        </form>
+      </div>
+
+    </script>
+    <div style="position:absolute;bottom:0;">Version: {{appVersion}}</div>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+ <ion-modal-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+    <h1 class="title">Add Lead</h1>
+    <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeAddLeadModal()">Back</button>
+  </ion-header-bar >
+  <ion-content >
+    
+        <label class="item item-input">
+          <span class="input-label"><font color="red">*</font>First Name</span>
+          <input type="text" ng-model="add_lead_first_name" name="add_lead_first_name">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label"><font color="red">*</font>Last Name</span>
+          <input type="text" ng-model="add_lead_last_name" name="add_lead_last_name">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label"><font color="red">*</font>Email</span>
+          <input type="text" ng-model="add_lead_email" name="add_lead_email">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label"><font color="red">*</font>Contact Number</span>
+          <input type="text" ng-model="add_lead_contact_number" name="add_lead_contact_number">
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Birthdate</span>
+          <input type="date" ng-model="add_lead_birthdate" name="add_lead_birthdate">
+        </label>
+
+        <label class = "item item-input item-select">
+          <div class = "input-label">
+            Gender
+          </div>
+
+          <select ng-model="add_lead_gender">
+            <option ng-selected="{{add_lead_male_selected}}">Male</option>
+            <option ng-selected="{{add_lead_female_selected}}">Female</option>
+          </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">Country</span>
+          <!-- <input type="text" ng-model="country" name="country"> -->
+        <select 
+            ng-model="add_lead_country" 
+            ng-options="countryOption.name for countryOption in countryOptions"
+            ng-change="changeCountry()">
+        </select>
+        </label>
+
+        <label class="item item-input item-select">
+          <span class="input-label">State</span>
+          <!-- <input type="text" ng-model="state" name="state"> -->
+        <select 
+            ng-model="add_lead_state" 
+            ng-options="stateOption.name for stateOption in stateOptions">
+        </select>
+        </label>
+      
+        <label class="item item-input">
+          <span class="input-label">City</span>
+          <input type="text" ng-model="add_lead_city" name="city">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Street</span>
+          <input type="text" ng-model="add_lead_street" name="street">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Zip</span>
+          <input type="text" ng-model="add_lead_zip" name="zip">
+        </label>
+
+        <label class="item">
+          <button class="button button-block button-positive" ng-click="addLead()">Add</button>
+            
+        </label>
+      </div>
+
+
+
+
+  </ion-content>
+
+
+
+</ion-modal-view>
+

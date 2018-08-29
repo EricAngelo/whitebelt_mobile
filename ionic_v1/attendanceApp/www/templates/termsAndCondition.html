@@ -1,0 +1,12 @@
+ <ion-modal-view style="z-index:inherit;" ng-click="idleIsFalse()">
+  <ion-header-bar class="bar bar-stable bar-header">
+  </ion-header-bar >
+  <ion-content>
+    <div class="item item-text-wrap" ng-bind-html="digital_tac"></div>
+    <div>
+    <p style="padding:10px;color:gray;">By logging in to WhiteBelt Mobile you agree to our Terms and Conditions. Click <b style="color:#33cd5f;">AGREE</b> to proceed<p>
+      <button class="button button-balanced button-block" ng-click="agreeWithTAC();">Agree</button>
+      <button class="button button-assertive button-block" ng-click="declineTAC();">Disagree</button>
+    </div>
+  </ion-content>
+</ion-modal-view>

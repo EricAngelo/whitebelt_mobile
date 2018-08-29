@@ -1,0 +1,79 @@
+
+<ion-view style="z-index:inherit;"  ng-click="idleIsFalse()">
+  <ion-content>
+  <div class="card">
+    <div class="item item-divider bar-stable bar">
+      <h7 class="title">Class Details</h7>
+      <button class="button button-gray ion-ios-arrow-back icon-left" ng-click="closeMyClassRecordModal()">Back</button>
+    </div>
+    <div style="padding-left:10px;">
+        <h4><b>{{class_details_name}}</b></h4>
+        <h5>Time In: {{class_details_timeIn}}</h5>
+        <h5>Time Out: {{class_details_timeOut}}</h5>
+        <h5>Area: {{class_details_area_name}}</h5>
+        <h5>Duration: {{class_details_duration}}</h5>
+        <h5>Suggested Ranks: {{class_details_suggested_ranks}}</h5>
+    </div>
+    <div class="row" style="padding-left:10px;">
+      <div class="col" ng-repeat="class_details_name in class_details_names track by $index">
+        <div style="border: 1px solid #000000;width: 40px;">
+          <div style="background:#{{class_details_layer_1[$index]}};color:#{{class_details_layer_1[$index]}};height: 8px;"></div>
+          <div style="background:#{{class_details_layer_2[$index]}};color:#{{class_details_layer_2[$index]}};height: 6px;"></div>
+          <div style="background:#{{class_details_layer_3[$index]}};color:#{{class_details_layer_3[$index]}};height: 6px;"></div>
+          <div style="background:#{{class_details_layer_4[$index]}};color:#{{class_details_layer_4[$index]}};height: 8px;"></div>
+        </div>
+<!--         {{class_details_names[$index]}} -->
+      </div>
+    </div>
+  </div>
+
+    <div class="card" ng-show="showRecords()">
+      <div class="item item-divider bar-stable bar">
+        <h7 class="title">Students Checked In</h7>
+        <button class="button ion-person-add" ng-click="showAddStudent(class_details_classId)"></button>
+      </div>
+<!--       <div class="button button-full button-positive" ng-click="loadClassFilter()"><center>Filter:<br> <b>{{filter1_lbl}}: {{filter2_lbl}}</b></center></div> -->
+
+      <div class="item item-avatar item-text-wrap" ng-repeat="checkedin_student in checkedin_students" style="{{checkedin_student.isLead}}">
+        <div class="row" style="margin-bottom:-25px;">
+          <div class="col item-avatar" style="margin-bottom:-25px;">
+              <img ng-src="{{checkedin_student.pic}}" onerror="this.src='img/logo.png'" style="background-position: center;border-radius: 50%;" ng-click="viewStudentDetails(checkedin_student.userid)">
+              <h2 ng-click="viewStudentDetails(checkedin_student.userid)">{{checkedin_student.name}}<b ng-show="checkedin_student.onHold==1"> &#x26D4;</b></h2> 
+              <p ng-click="viewStudentDetails(checkedin_student.userid)">{{checkedin_student.username}}</p>
+          </div>
+          <div class="col" style="">
+            <button class="button button-small button-assertive" style="position: absolute;right:20px;" ng-click="checkoff({{checkedin_student.userid}},{{class_details_classId}},'{{checkedin_student.name}}')">Check Off</button>
+            </div><hr>
+        </div>
+      </div>
+      <div class="item item-text-wrap" ng-hide="showNoStudetsCheckedIn()">
+        <center>
+          <h2 class="title">No Students Checked In</h2>
+        </center>
+      </div>
+  <button class="button button-full button-balanced" ng-click="showAddStudent(class_details_classId)">Check in a student</button> 
+  </div>
+  
+  
+<!--   <div class="row" ng-show="!showRecord()">
+    <div class="col col-50">
+      <button class="button button-block button-energized" ng-click="goBack()">Cancel</button>
+    </div>
+    <div class="col col-50">
+
+    {{$index}}<br>
+    '{{classDetailClassTpye}}'<br>
+     {{classDetailId}}<br>
+      '{{classDetailName}}'<br>
+       '{{classDetailTime_in}} - {{classDetailTime_out}}'<br>
+      <button class="button button-block button-balanced" ng-click="toggleCheckin($index,'{{classDetailClassTpye}}',{{classDetailId}}, '{{classDetailName}}', '{{classDetailTime_in}} - {{classDetailTime_out}}')"  ng-disabled="disableButton()">Check In</button>
+    </div>
+  </div> -->
+
+  </ion-content>
+<!--   <div class="fixed-outside">
+   <button class="button button-circle button-positive ion-chevron-up" ng-click="backTotop()"></button>
+  </div> -->
+
+
+</ion-view>
